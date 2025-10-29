@@ -1,0 +1,64 @@
+# =============== #
+# Unity generated #
+# =============== #
+[Tt]emp/
+[Oo]bj/
+[Bb]uild
+/[Bb]uilds/
+/[Ll]ibrary/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+
+sysinfo.txt
+*.stackdump
+/Assets/AssetStoreTools*
+*.apk
+ 
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+[Ee]xported[Oo]bj/
+.vs/
+/*.userprefs
+/*.csproj
+/*.pidb
+*.pidb.meta
+/*.suo
+/*.sln*
+/*.user
+/*.unityproj
+/*.booproj
+.consulo/
+/*.tmp
+/*.svd
+*.DotSettings.user
+ 
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store*
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+[Tt]humbs.db
+[Tt]humbs.db.meta
+[Dd]esktop.ini
+Corridor/Library/ShaderCache/
+Corridor/Library/metadata/
+.idea/
+Assets/AssetBundles/
+Assets/Plugins/Editor.meta
+Assets/Plugins/Editor/JetBrains.meta
+Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll
+Assets/Plugins/Editor/JetBrains/JetBrains.Rider.Unity.Editor.Plugin.Repacked.dll.meta
+Assets/StreamingAssets/build_info
+Assets/GeneratedLocalRepo/
+Assets/GeneratedLocalRepo.meta
+.vsconfig
+
+/[Aa]ssets/[Pp]lugins/[Aa]ndroid/[Ff]irebaseCrashlytics.androidlib/res/values/*
+/[Aa]ssets/[Pp]lugins/[Aa]ndroid/[Ff]irebaseCrashlytics.androidlib/res/values.meta
+
+FirebaseCppApp-*.bundle
+FirebaseCppApp-*.so
