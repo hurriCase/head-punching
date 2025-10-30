@@ -1,10 +1,11 @@
 ﻿using PrimeTween;
 using R3;
+using Source.Scripts.Gameplay.Head;
 using Source.Scripts.Input;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Gameplay
+namespace Source.Scripts.Gameplay.Gloves
 {
     internal sealed class BoxingGlove : MonoBehaviour
     {
@@ -17,13 +18,14 @@ namespace Source.Scripts.Gameplay
 
         [Inject] private IInputService _inputService;
         [Inject] private Camera _camera;
-        [Inject] private HeadController _headController;
+        [Inject] private IHeadController _headController;
 
         private Vector3 _basePunchPosition;
         private Quaternion _basePunchRotation;
 
         private Sequence _currentPunchTween;
         private Vector3 _currentPunchTarget;
+        private Vector3 _punchStartPosition;
 
         internal void Init()
         {
@@ -42,10 +44,10 @@ namespace Source.Scripts.Gameplay
             if (_currentPunchTween.isAlive)
                 return;
 
-            var currentPosition = _punchTransform.position;
-            _currentPunchTarget = _headController.MeshCollider.ClosestPoint(currentPosition);
+            _punchStartPosition = _punchTransform.position;
+            _currentPunchTarget = _headController.GetPunchTarget(_punchStartPosition);
 
-            var direction = _currentPunchTarget - currentPosition;
+            var direction = _currentPunchTarget - _punchStartPosition;
             var targetRotation = Quaternion.LookRotation(direction);
 
             var parent = _punchTransform.parent;
@@ -65,7 +67,8 @@ namespace Source.Scripts.Gameplay
         {
             MoveGlove(_basePunchPosition, _basePunchRotation, _returnSettings);
 
-            _headController.ApplyPunchImpact(_currentPunchTarget);
+            var punchDirection = (_currentPunchTarget - _punchStartPosition).normalized;
+            _headController.ApplyPunchImpact(_currentPunchTarget, punchDirection);
         }
 
         private void MoveGlove(Vector3 position, Quaternion rotation, TweenSettings settings)

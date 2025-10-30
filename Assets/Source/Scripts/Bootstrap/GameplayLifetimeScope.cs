@@ -1,4 +1,5 @@
-﻿using Source.Scripts.Gameplay;
+﻿using Source.Scripts.Gameplay.Gloves;
+using Source.Scripts.Gameplay.Head;
 using Source.Scripts.Input;
 using UnityEngine;
 using VContainer;
@@ -10,16 +11,19 @@ namespace Source.Scripts.Bootstrap
     {
         [SerializeField] private Camera _camera;
         [SerializeField] private HeadController _headController;
+        [SerializeField] private GlovesHandler _glovesHandler;
 
         protected override void Configure(IContainerBuilder builder)
         {
             builder.RegisterInstance(_camera);
-            builder.RegisterInstance(_headController);
+
+            builder.RegisterInstance(_headController).As<IHeadController>();
+            builder.RegisterInstance(_glovesHandler).As<IGlovesHandler>();
+
             builder.Register<IA_Gameplay>(Lifetime.Singleton);
             builder.Register<InputService>(Lifetime.Singleton).As<IInputService>();
 
-            Cursor.visible = false;
-            Cursor.lockState = CursorLockMode.Confined;
+            builder.RegisterEntryPoint<EntryPoint>();
         }
     }
 }

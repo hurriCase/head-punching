@@ -208,10 +208,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d0abbddd6b40b0ab3a5b0ed60c82a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <MeshCollider>k__BackingField: {fileID: 5547481097348552162}
+  _meshCollider: {fileID: 5547481097348552162}
   _rigidbody: {fileID: 3068808773308732967}
-  _joint: {fileID: 8356363451459516504}
-  _punchForceMultiplier: 20
+  _meshDeformation: {fileID: 4783516199936214633}
+  _punchForceMultiplier: 10
 --- !u!1001 &7224021482127286413
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -277,6 +277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3068969393728822203, guid: 0d8e86522b002d749954f555bea0a229, type: 3}
+    - {fileID: 5114303268534357989, guid: 0d8e86522b002d749954f555bea0a229, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -287,6 +288,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 7224021482127286413}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &4783516199936214633 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2747925713955497700, guid: 0d8e86522b002d749954f555bea0a229,
+    type: 3}
+  m_PrefabInstance: {fileID: 7224021482127286413}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b68cbe36c644f1e9c9187253db3011b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!64 &5547481097348552162 stripped
 MeshCollider:
   m_CorrespondingSourceObject: {fileID: 2935359501086979439, guid: 0d8e86522b002d749954f555bea0a229,

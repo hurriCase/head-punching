@@ -123,6 +123,18 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &54689739 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6006971756390075684, guid: a9d0d181d66945f419ca06f631b4abb0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1160412874208817943}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d0abbddd6b40b0ab3a5b0ed60c82a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -209,13 +221,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.12635474, y: -0, z: -0, w: 0.9919851}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: -0.605}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 14.518, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -378,12 +390,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 1
---- !u!4 &567899717 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6437948877983020822, guid: a9d0d181d66945f419ca06f631b4abb0,
-    type: 3}
-  m_PrefabInstance: {fileID: 1160412874208817943}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -439,6 +445,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 485436687080518305}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1970557862 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 123162699131742997, guid: 5d522d8050a570848be5ed3b208418c4,
+    type: 3}
+  m_PrefabInstance: {fileID: 485436687080518305}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1970557861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9530affe7134481bb967be0ddc4ac901, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &485436687080518305
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -451,7 +469,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _head
       value: 
-      objectReference: {fileID: 567899717}
+      objectReference: {fileID: 0}
     - target: {fileID: 5438604926438354630, guid: 5d522d8050a570848be5ed3b208418c4,
         type: 3}
       propertyPath: m_Name
@@ -475,7 +493,7 @@ PrefabInstance:
     - target: {fileID: 8656533942781525790, guid: 5d522d8050a570848be5ed3b208418c4,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8656533942781525790, guid: 5d522d8050a570848be5ed3b208418c4,
         type: 3}
@@ -485,7 +503,7 @@ PrefabInstance:
     - target: {fileID: 8656533942781525790, guid: 5d522d8050a570848be5ed3b208418c4,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8656533942781525790, guid: 5d522d8050a570848be5ed3b208418c4,
         type: 3}
@@ -500,7 +518,7 @@ PrefabInstance:
     - target: {fileID: 8656533942781525790, guid: 5d522d8050a570848be5ed3b208418c4,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8656533942781525790, guid: 5d522d8050a570848be5ed3b208418c4,
         type: 3}
@@ -524,6 +542,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: P_Enviornment
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006971756390075684, guid: a9d0d181d66945f419ca06f631b4abb0,
+        type: 3}
+      propertyPath: _isOld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7830445006830160822, guid: a9d0d181d66945f419ca06f631b4abb0,
         type: 3}
@@ -676,6 +699,8 @@ MonoBehaviour:
   autoInjectGameObjects:
   - {fileID: 1970557861}
   _camera: {fileID: 330585545}
+  _headController: {fileID: 54689739}
+  _glovesHandler: {fileID: 1970557862}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

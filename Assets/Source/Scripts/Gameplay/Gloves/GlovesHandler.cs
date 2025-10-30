@@ -3,16 +3,16 @@ using Source.Scripts.Input;
 using UnityEngine;
 using VContainer;
 
-namespace Source.Scripts.Gameplay
+namespace Source.Scripts.Gameplay.Gloves
 {
-    internal sealed class HandsController : MonoBehaviour
+    internal sealed class GlovesHandler : MonoBehaviour, IGlovesHandler
     {
         [SerializeField] private BoxingGlove _leftGlove;
         [SerializeField] private BoxingGlove _rightGlove;
 
         [Inject] private IInputService _inputService;
 
-        internal void Awake()
+        public void Init()
         {
             _leftGlove.Init();
             _rightGlove.Init();

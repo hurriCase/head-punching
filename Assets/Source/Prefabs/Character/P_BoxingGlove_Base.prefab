@@ -78,7 +78,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _punchTransform: {fileID: 4347808990263598526}
   _visualTransform: {fileID: 0}
-  _offset: {x: 0, y: -0.2, z: 0}
+  _offset: {x: 0, y: -0.1, z: 0}
   _punchSettings:
     duration: 0.12
     ease: 6
