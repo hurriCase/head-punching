@@ -10,7 +10,7 @@ namespace Source.Scripts.Gameplay
     {
         [SerializeField] private Transform _punchTransform;
         [SerializeField] private Transform _visualTransform;
-        [SerializeField] private float _xOffset;
+        [SerializeField] private Vector3 _offset;
         [SerializeField] private TweenSettings _punchSettings;
         [SerializeField] private TweenSettings _returnSettings;
         [SerializeField] private ShakeSettings _shakeSettings;
@@ -79,7 +79,8 @@ namespace Source.Scripts.Gameplay
         {
             var screenPosition = new Vector3(mousePosition.x, mousePosition.y, _camera.nearClipPlane);
             var worldPosition = _camera.ScreenToWorldPoint(screenPosition);
-            transform.position = new Vector3(worldPosition.x + _xOffset, worldPosition.y, 0);
+            var targetPosition = worldPosition + _offset;
+            transform.position = new Vector3(targetPosition.x, targetPosition.y, 0);
         }
     }
 }

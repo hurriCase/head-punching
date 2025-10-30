@@ -76,10 +76,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f303aafedb34d8a84fc11dc79e3dfed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveTransform: {fileID: 4141891910319206874}
   _punchTransform: {fileID: 4347808990263598526}
   _visualTransform: {fileID: 0}
-  _xOffset: 0
+  _offset: {x: 0, y: -0.2, z: 0}
   _punchSettings:
     duration: 0.12
     ease: 6

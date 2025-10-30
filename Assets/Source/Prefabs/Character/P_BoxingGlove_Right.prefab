@@ -65,6 +65,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7209733592974324196, guid: 0a92a7dde4558b24dbd198b80659ee31,
         type: 3}
+      propertyPath: _offset.x
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7209733592974324196, guid: 0a92a7dde4558b24dbd198b80659ee31,
+        type: 3}
       propertyPath: _visualTransform
       value: 
       objectReference: {fileID: 4776509031902875196}
