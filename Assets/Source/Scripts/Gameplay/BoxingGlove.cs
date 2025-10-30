@@ -23,6 +23,7 @@ namespace Source.Scripts.Gameplay
         private Quaternion _basePunchRotation;
 
         private Sequence _currentPunchTween;
+        private Vector3 _currentPunchTarget;
 
         internal void Init()
         {
@@ -42,16 +43,16 @@ namespace Source.Scripts.Gameplay
                 return;
 
             var currentPosition = _punchTransform.position;
-            var punchTarget = _headController.MeshCollider.ClosestPoint(currentPosition);
+            _currentPunchTarget = _headController.MeshCollider.ClosestPoint(currentPosition);
 
-            var direction = punchTarget - currentPosition;
+            var direction = _currentPunchTarget - currentPosition;
             var targetRotation = Quaternion.LookRotation(direction);
 
             var parent = _punchTransform.parent;
-            var localPunchTarget = parent.InverseTransformPoint(punchTarget);
+            var localPunchTarget = parent.InverseTransformPoint(_currentPunchTarget);
             var localTargetRotation = Quaternion.Inverse(parent.rotation) * targetRotation;
 
-            CreatePunchSequence(localPunchTarget, localTargetRotation, _punchSettings);
+            MoveGlove(localPunchTarget, localTargetRotation, _punchSettings);
             _currentPunchTween.OnComplete(this, static self => self.OnPunchComplete());
         }
 
@@ -62,10 +63,12 @@ namespace Source.Scripts.Gameplay
 
         private void OnPunchComplete()
         {
-            CreatePunchSequence(_basePunchPosition, _basePunchRotation, _returnSettings);
+            MoveGlove(_basePunchPosition, _basePunchRotation, _returnSettings);
+
+            _headController.ApplyPunchImpact(_currentPunchTarget);
         }
 
-        private void CreatePunchSequence(Vector3 position, Quaternion rotation, TweenSettings settings)
+        private void MoveGlove(Vector3 position, Quaternion rotation, TweenSettings settings)
         {
             _currentPunchTween = Sequence.Create()
                 .Chain(Tween.LocalPosition(_punchTransform, position, settings))
