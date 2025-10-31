@@ -1,5 +1,4 @@
-﻿using R3;
-using Source.Scripts.Input;
+﻿using Source.Scripts.Input;
 using UnityEngine;
 using VContainer;
 
@@ -14,16 +13,8 @@ namespace Source.Scripts.Gameplay.Gloves
 
         public void Init()
         {
-            _leftGlove.Init();
-            _rightGlove.Init();
-
-            _inputService.OnLeftClicked
-                .Subscribe(this, static (_, self) => self._leftGlove.Punch())
-                .RegisterTo(destroyCancellationToken);
-
-            _inputService.OnRightClicked
-                .Subscribe(this, static (_, self) => self._rightGlove.Punch())
-                .RegisterTo(destroyCancellationToken);
+            _leftGlove.Init(_inputService.OnLeftPressed, _inputService.OnLeftReleased);
+            _rightGlove.Init(_inputService.OnRightPressed, _inputService.OnRightReleased);
         }
     }
 }

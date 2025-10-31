@@ -1,7 +1,6 @@
-﻿using PrimeTween;
+﻿using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Gameplay.Head;
-using Source.Scripts.Input;
 using UnityEngine;
 using VContainer;
 
@@ -9,81 +8,50 @@ namespace Source.Scripts.Gameplay.Gloves
 {
     internal sealed class BoxingGlove : MonoBehaviour
     {
-        [SerializeField] private Transform _punchTransform;
-        [SerializeField] private Transform _visualTransform;
-        [SerializeField] private Vector3 _offset;
-        [SerializeField] private TweenSettings _punchSettings;
-        [SerializeField] private TweenSettings _returnSettings;
-        [SerializeField] private ShakeSettings _shakeSettings;
+        [SerializeField] private GloveMovementHandler _gloveMovementHandler;
+        [SerializeField] private PunchChargeHandler _punchChargeHandler;
 
-        [Inject] private IInputService _inputService;
-        [Inject] private Camera _camera;
+        [SerializeField] private Transform _punchTransform;
+
         [Inject] private IHeadController _headController;
 
-        private Vector3 _basePunchPosition;
-        private Quaternion _basePunchRotation;
+        private bool _isPunching;
 
-        private Sequence _currentPunchTween;
-        private Vector3 _currentPunchTarget;
-        private Vector3 _punchStartPosition;
-
-        internal void Init()
+        internal void Init(Observable<Unit> onMousePressed, Observable<Unit> onMouseReleased)
         {
-            _basePunchPosition = _punchTransform.localPosition;
-            _basePunchRotation = _punchTransform.localRotation;
+            _gloveMovementHandler.Init();
 
-            _inputService.CurrentMousePosition
-                .Subscribe(this, static (position, self) => self.MoveGlove(position))
+            onMousePressed
+                .Where(this, static (_, self) => self._isPunching is false)
+                .Subscribe(this, static (_, self) => self._punchChargeHandler.StartCharge())
                 .RegisterTo(destroyCancellationToken);
 
-            ShakeGlove();
+            onMouseReleased
+                .Where(this, static (_, self) => self._isPunching is false)
+                .Do(this, static (_, self) => self.ExecutePunch().Forget())
+                .Subscribe(this, static (_, self) => self._punchChargeHandler.ReleaseCharge())
+                .RegisterTo(destroyCancellationToken);
         }
 
-        internal void Punch()
+        private async UniTask ExecutePunch()
         {
-            if (_currentPunchTween.isAlive)
-                return;
+            _isPunching = true;
 
-            _punchStartPosition = _punchTransform.position;
-            _currentPunchTarget = _headController.GetPunchTarget(_punchStartPosition);
+            var punchData = new PunchData(_punchTransform, _headController);
 
-            var direction = _currentPunchTarget - _punchStartPosition;
-            var targetRotation = Quaternion.LookRotation(direction);
+            await _gloveMovementHandler.ExecutePunch(punchData.LocalPunchTarget, punchData.LocalTargetRotation);
 
-            var parent = _punchTransform.parent;
-            var localPunchTarget = parent.InverseTransformPoint(_currentPunchTarget);
-            var localTargetRotation = Quaternion.Inverse(parent.rotation) * targetRotation;
-
-            MoveGlove(localPunchTarget, localTargetRotation, _punchSettings);
-            _currentPunchTween.OnComplete(this, static self => self.OnPunchComplete());
+            CompletePunch(punchData.PunchStartPosition, punchData.CurrentPunchTarget);
         }
 
-        private void ShakeGlove()
+        private void CompletePunch(Vector3 punchStartPosition, Vector3 currentPunchTarget)
         {
-            Tween.ShakeLocalPosition(_visualTransform, _shakeSettings);
-        }
+            var punchDirection = (currentPunchTarget - punchStartPosition).normalized;
+            var forceMultiplier = _punchChargeHandler.ReleaseCharge();
 
-        private void OnPunchComplete()
-        {
-            MoveGlove(_basePunchPosition, _basePunchRotation, _returnSettings);
+            _headController.ApplyPunchImpact(currentPunchTarget, punchDirection, forceMultiplier);
 
-            var punchDirection = (_currentPunchTarget - _punchStartPosition).normalized;
-            _headController.ApplyPunchImpact(_currentPunchTarget, punchDirection);
-        }
-
-        private void MoveGlove(Vector3 position, Quaternion rotation, TweenSettings settings)
-        {
-            _currentPunchTween = Sequence.Create()
-                .Chain(Tween.LocalPosition(_punchTransform, position, settings))
-                .Group(Tween.LocalRotation(_punchTransform, rotation, settings));
-        }
-
-        private void MoveGlove(Vector2 mousePosition)
-        {
-            var screenPosition = new Vector3(mousePosition.x, mousePosition.y, _camera.nearClipPlane);
-            var worldPosition = _camera.ScreenToWorldPoint(screenPosition);
-            var targetPosition = worldPosition + _offset;
-            transform.position = new Vector3(targetPosition.x, targetPosition.y, 0);
+            _isPunching = false;
         }
     }
 }

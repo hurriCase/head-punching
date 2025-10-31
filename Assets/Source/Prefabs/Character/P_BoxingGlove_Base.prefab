@@ -28,8 +28,40 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 3246762746875897431}
   m_Father: {fileID: 4141891910319206874}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1910920187304864577
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3246762746875897431}
+  m_Layer: 0
+  m_Name: VisualPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3246762746875897431
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1910920187304864577}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4347808990263598526}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8304394269838542190
 GameObject:
@@ -41,6 +73,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4141891910319206874}
   - component: {fileID: 7209733592974324196}
+  - component: {fileID: 3928011534734931536}
+  - component: {fileID: 4409107709783659064}
   m_Layer: 0
   m_Name: P_BoxingGlove_Base
   m_TagString: Untagged
@@ -76,12 +110,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f303aafedb34d8a84fc11dc79e3dfed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _gloveMovementHandler: {fileID: 3928011534734931536}
+  _punchChargeHandler: {fileID: 4409107709783659064}
   _punchTransform: {fileID: 4347808990263598526}
-  _visualTransform: {fileID: 0}
-  _offset: {x: 0, y: -0.1, z: 0}
+--- !u!114 &3928011534734931536
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8304394269838542190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0ebddbfa09b4395867956ad164be5b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _punchTransform: {fileID: 4347808990263598526}
+  _visualTransform: {fileID: 3246762746875897431}
+  _offset: {x: 0, y: -0.2, z: 0}
   _punchSettings:
-    duration: 0.12
-    ease: 6
+    duration: 0.1
+    ease: 9
     customEase:
       serializedVersion: 2
       m_Curve: []
@@ -112,7 +161,7 @@ MonoBehaviour:
     _useFixedUpdate: 0
     _updateType: 0
   _shakeSettings:
-    strength: {x: 0.01, y: 0.02, z: 0}
+    strength: {x: 0.01, y: 0.01, z: 0}
     duration: 1
     frequency: 10
     enableFalloff: 0
@@ -131,3 +180,50 @@ MonoBehaviour:
     useUnscaledTime: 0
     _useFixedUpdate: 0
     _updateType: 0
+--- !u!114 &4409107709783659064
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8304394269838542190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47e3e78006f447da9ea6d52b02442ffa, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _visualTransform: {fileID: 3246762746875897431}
+  _endScale: 1.3
+  _chargeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0.17446674
+      outSlope: 0.17446674
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 2.408354
+      value: 1.4201777
+      inSlope: 0.42644897
+      outSlope: 0.42644897
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 4
+      value: 2.5
+      inSlope: 0.6784312
+      outSlope: 0.6784312
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4

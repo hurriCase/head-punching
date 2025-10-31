@@ -211,7 +211,7 @@ MonoBehaviour:
   _meshCollider: {fileID: 5547481097348552162}
   _rigidbody: {fileID: 3068808773308732967}
   _meshDeformation: {fileID: 4783516199936214633}
-  _punchForceMultiplier: 10
+  _basePunchForce: 10
 --- !u!1001 &7224021482127286413
 PrefabInstance:
   m_ObjectHideFlags: 0

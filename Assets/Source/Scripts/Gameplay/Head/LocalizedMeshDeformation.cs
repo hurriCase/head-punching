@@ -8,7 +8,7 @@ namespace Source.Scripts.Gameplay.Head
     {
         [SerializeField] private MeshFilter _meshFilter;
         [SerializeField] private float _deformationRadius;
-        [SerializeField] private float _deformationStrength;
+        [SerializeField] private float _baseDeformationStrength;
         [SerializeField] private float _recoveryDuration;
 
         private Mesh _mesh;
@@ -28,13 +28,14 @@ namespace Source.Scripts.Gameplay.Head
             Array.Copy(_originalVertices, _displacedVertices, _originalVertices.Length);
         }
 
-        internal void ApplyDeformationAtPoint(Vector3 worldPoint, Vector3 force)
+        internal void ApplyDeformationAtPoint(Vector3 worldPoint, Vector3 force, float deformationMultiplier)
         {
             var meshTransform = _meshFilter.transform;
             var localPoint = meshTransform.InverseTransformPoint(worldPoint);
             var forceDirection = meshTransform.InverseTransformDirection(force.normalized);
 
             var hasDeformation = false;
+            var effectiveStrength = _baseDeformationStrength * deformationMultiplier;
 
             for (var i = 0; i < _originalVertices.Length; i++)
             {
@@ -44,7 +45,7 @@ namespace Source.Scripts.Gameplay.Head
                     continue;
 
                 var falloff = 1f - distance / _deformationRadius;
-                var displacement = forceDirection * (_deformationStrength * falloff);
+                var displacement = forceDirection * (effectiveStrength * falloff);
 
                 _displacedVertices[i] = _originalVertices[i] + displacement;
                 hasDeformation = true;

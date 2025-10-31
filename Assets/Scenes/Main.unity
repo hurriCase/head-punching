@@ -611,6 +611,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2274549147562896467, guid: f5a0b98ae80da7c44aac0215432a0c3b,
+        type: 3}
+      propertyPath: _camera
+      value: 
+      objectReference: {fileID: 330585545}
+    - target: {fileID: 2274549147562896467, guid: f5a0b98ae80da7c44aac0215432a0c3b,
+        type: 3}
+      propertyPath: _glovesHandler
+      value: 
+      objectReference: {fileID: 1970557862}
+    - target: {fileID: 2274549147562896467, guid: f5a0b98ae80da7c44aac0215432a0c3b,
+        type: 3}
+      propertyPath: _headController
+      value: 
+      objectReference: {fileID: 54689739}
+    - target: {fileID: 2274549147562896467, guid: f5a0b98ae80da7c44aac0215432a0c3b,
+        type: 3}
+      propertyPath: autoInjectGameObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 1970557861}
     - target: {fileID: 2513549717125069543, guid: f5a0b98ae80da7c44aac0215432a0c3b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -669,38 +689,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7538444539200550173, guid: f5a0b98ae80da7c44aac0215432a0c3b,
-        type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5470715590529094329}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f5a0b98ae80da7c44aac0215432a0c3b, type: 3}
---- !u!1 &5470715590529094328 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7538444539200550173, guid: f5a0b98ae80da7c44aac0215432a0c3b,
-    type: 3}
-  m_PrefabInstance: {fileID: 5470715590529094327}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5470715590529094329
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5470715590529094328}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6d805ba4790945b39a2e6d4985f9c978, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  parentReference:
-    TypeName: 
-  autoRun: 1
-  autoInjectGameObjects:
-  - {fileID: 1970557861}
-  _camera: {fileID: 330585545}
-  _headController: {fileID: 54689739}
-  _glovesHandler: {fileID: 1970557862}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
