@@ -30,7 +30,8 @@ Transform:
   m_LocalPosition: {x: 1.3780794, y: -0.57500005, z: -2.7474701}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4056042107724494096}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1570233185233220249
@@ -62,103 +63,83 @@ MonoBehaviour:
   - m_EditModeType: 1
     m_Knots:
     - Position:
-        x: -0.00007939339
-        y: 0.81000006
+        x: 0.083720565
+        y: 0.85270005
         z: 0.00047016144
       TangentIn:
         x: -0
         y: -0
-        z: -0.030664962
+        z: -0.018298876
       TangentOut:
         x: 0
         y: 0
-        z: 0.030664962
+        z: 0.018298876
       Rotation:
         value:
-          x: 0.4692315
-          y: 0.21600197
-          z: 0.14303696
-          w: 0.8442188
+          x: 0.69983506
+          y: 0.30454823
+          z: 0.090977214
+          w: 0.6396909
     - Position:
-        x: 0.1529206
-        y: 0.586
-        z: 0.14347005
+        x: 0.17832053
+        y: 0.69900006
+        z: -0.029729843
       TangentIn:
-        x: -0
-        y: -0
-        z: -0.07416376
+        x: 0
+        y: 0
+        z: 0
       TangentOut:
         x: 0
         y: 0
-        z: 0.05740346
+        z: 0
       Rotation:
         value:
-          x: 0.21002828
-          y: 0.12780443
-          z: 0.0723094
-          w: 0.9666051
+          x: 0.3170676
+          y: 0.18855183
+          z: 0.06798524
+          w: 0.9269813
     - Position:
-        x: 0.14602053
-        y: 0.6018
-        z: 0.32637024
+        x: 0.14679451
+        y: 0.7352232
+        z: 0.12435755
       TangentIn:
-        x: -0
-        y: -0
-        z: -0.06306635
+        x: 0.0000000069849193
+        y: -0.000000039464794
+        z: -0.09498388
       TangentOut:
-        x: 0
-        y: 0
-        z: 0.06829223
+        x: 9.313226e-10
+        y: 4.656613e-10
+        z: 0.21988906
       Rotation:
         value:
-          x: -0.094047114
-          y: -0.06507414
-          z: 0.00021351174
-          w: 0.9934388
+          x: -0.10782305
+          y: -0.10496837
+          z: -0.055140488
+          w: 0.98707414
     - Position:
-        x: 0.09892058
-        y: 0.66300005
-        z: 0.5274701
-      TangentIn:
-        x: -0
-        y: -0
-        z: -0.07510923
-      TangentOut:
-        x: 0
-        y: 0
-        z: 0.08392806
-      Rotation:
-        value:
-          x: -0.20565924
-          y: -0.1367408
-          z: 0.020780899
-          w: 0.9688004
-    - Position:
-        x: 0.011920571
-        y: 0.79600006
+        x: 0.019920588
+        y: 0.88100004
         z: 0.7444701
       TangentIn:
         x: -0
         y: -0
-        z: -0.026897399
+        z: -0.064952865
       TangentOut:
         x: 0
         y: 0
-        z: 0.026897399
+        z: 0.064952865
       Rotation:
         value:
-          x: -0.2649387
-          y: -0.16255079
-          z: 0.027521623
-          w: 0.950067
+          x: -0.1185004
+          y: -0.09274616
+          z: 0.05148089
+          w: 0.9872718
     m_MetaData:
     - Mode: 0
       Tension: 0.5
-    - Mode: 0
+    - Mode: 1
       Tension: 0.5
-    - Mode: 0
-      Tension: 0.5
-    - Mode: 0
+    - Mode: 4
       Tension: 0.5
     - Mode: 0
       Tension: 0.5
@@ -198,37 +179,138 @@ MonoBehaviour:
     - m_Index: 0
       m_Value:
         value:
-          x: -0.19417578
-          y: -0.59949416
-          z: -0.72203225
-          w: 0.28560805
+          x: -0.059868388
+          y: -0.14576651
+          z: 0.13145015
+          w: 0.9787179
     - m_Index: 1
       m_Value:
         value:
-          x: -0.051261928
-          y: -0.35825095
-          z: -0.693201
-          w: 0.6232984
+          x: 0.13717422
+          y: 0.0780257
+          z: 0.2818993
+          w: 0.94637626
     - m_Index: 2
       m_Value:
         value:
-          x: -0.15361188
-          y: -0.1753133
-          z: -0.34126523
-          w: 0.9106079
+          x: 0.41694272
+          y: 0.36565876
+          z: 0.40304464
+          w: 0.7280162
     - m_Index: 3
       m_Value:
         value:
-          x: -0.31612128
-          y: -0.22695887
-          z: -0.4377064
-          w: 0.8105369
-    - m_Index: 4
-      m_Value:
-        value:
-          x: 0.36699092
-          y: 0.1939383
-          z: 0.33118692
-          w: -0.84736115
-  _target: {fileID: 0}
-  _progress: 0
+          x: 0.24171701
+          y: 0.6003191
+          z: 0.53641313
+          w: 0.54171103
+  _timeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.6521214
+      value: 0.19279893
+      inSlope: 1.0000001
+      outSlope: 1.0000001
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  _target: {fileID: 4056042107724494096}
+  _progress: 0.799
+  _isValidatePoints: 0
+--- !u!1001 &2977950131630384872
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1262184997260690936}
+    m_Modifications:
+    - target: {fileID: 1232360203053814776, guid: 3161f006af10c5042adbcb2cbdf1873a,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.11385882
+      objectReference: {fileID: 0}
+    - target: {fileID: 1232360203053814776, guid: 3161f006af10c5042adbcb2cbdf1873a,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.77306587
+      objectReference: {fileID: 0}
+    - target: {fileID: 1232360203053814776, guid: 3161f006af10c5042adbcb2cbdf1873a,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.28533483
+      objectReference: {fileID: 0}
+    - target: {fileID: 1232360203053814776, guid: 3161f006af10c5042adbcb2cbdf1873a,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.68850005
+      objectReference: {fileID: 0}
+    - target: {fileID: 1232360203053814776, guid: 3161f006af10c5042adbcb2cbdf1873a,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.37612534
+      objectReference: {fileID: 0}
+    - target: {fileID: 1232360203053814776, guid: 3161f006af10c5042adbcb2cbdf1873a,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.4329201
+      objectReference: {fileID: 0}
+    - target: {fileID: 1232360203053814776, guid: 3161f006af10c5042adbcb2cbdf1873a,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.44393432
+      objectReference: {fileID: 0}
+    - target: {fileID: 1232360203053814776, guid: 3161f006af10c5042adbcb2cbdf1873a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1232360203053814776, guid: 3161f006af10c5042adbcb2cbdf1873a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1232360203053814776, guid: 3161f006af10c5042adbcb2cbdf1873a,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6584244217566865228, guid: 3161f006af10c5042adbcb2cbdf1873a,
+        type: 3}
+      propertyPath: m_Name
+      value: P_BoxingGlove_Right
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3161f006af10c5042adbcb2cbdf1873a, type: 3}
+--- !u!4 &4056042107724494096 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1232360203053814776, guid: 3161f006af10c5042adbcb2cbdf1873a,
+    type: 3}
+  m_PrefabInstance: {fileID: 2977950131630384872}
+  m_PrefabAsset: {fileID: 0}
