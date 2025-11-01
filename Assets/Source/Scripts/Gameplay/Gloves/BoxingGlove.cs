@@ -14,12 +14,18 @@ namespace Source.Scripts.Gameplay.Gloves
         [SerializeField] private Transform _punchTransform;
 
         [Inject] private IHeadController _headController;
+        [Inject] private IPunchService _punchService;
 
         private bool _isPunching;
+        private Vector3 _basePunchLocalPosition;
+        private Quaternion _basePunchLocalRotation;
 
         internal void Init(Observable<Unit> onMousePressed, Observable<Unit> onMouseReleased)
         {
             _gloveMovementHandler.Init();
+
+            _basePunchLocalPosition = _punchTransform.localPosition;
+            _basePunchLocalRotation = _punchTransform.localRotation;
 
             onMousePressed
                 .Where(this, static (_, self) => self._isPunching is false)
@@ -37,21 +43,28 @@ namespace Source.Scripts.Gameplay.Gloves
         {
             _isPunching = true;
 
-            var punchData = new PunchData(_punchTransform, _headController);
+            var startPoint = _punchTransform.position;
+            var punchTarget = _headController.GetPunchTarget(startPoint);
+            await _punchService.ExecutePunch(_punchTransform, startPoint, punchTarget);
 
-            await _gloveMovementHandler.ExecutePunch(punchData.LocalPunchTarget, punchData.LocalTargetRotation);
-
-            CompletePunch(punchData.PunchStartPosition, punchData.CurrentPunchTarget);
+            CompletePunch(startPoint, punchTarget);
+            ResetPunchTransform();
         }
 
-        private void CompletePunch(Vector3 punchStartPosition, Vector3 currentPunchTarget)
+        private void CompletePunch(Vector3 startPoint, Vector3 punchTarget)
         {
-            var punchDirection = (currentPunchTarget - punchStartPosition).normalized;
+            var punchDirection = (punchTarget - startPoint).normalized;
             var forceMultiplier = _punchChargeHandler.ReleaseCharge();
 
-            _headController.ApplyPunchImpact(currentPunchTarget, punchDirection, forceMultiplier);
+            _headController.ApplyPunchImpact(punchTarget, punchDirection, forceMultiplier);
 
             _isPunching = false;
+        }
+
+        private void ResetPunchTransform()
+        {
+            _punchTransform.localPosition = _basePunchLocalPosition;
+            _punchTransform.localRotation = _basePunchLocalRotation;
         }
     }
 }

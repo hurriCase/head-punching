@@ -12,6 +12,7 @@ namespace Source.Scripts.Bootstrap
         [SerializeField] private Camera _camera;
         [SerializeField] private HeadController _headController;
         [SerializeField] private GlovesHandler _glovesHandler;
+        [SerializeField] private PunchService _punchService;
 
         protected override void Configure(IContainerBuilder builder)
         {
@@ -19,6 +20,7 @@ namespace Source.Scripts.Bootstrap
 
             builder.RegisterInstance(_headController).As<IHeadController>();
             builder.RegisterInstance(_glovesHandler).As<IGlovesHandler>();
+            builder.RegisterInstance(_punchService).As<IPunchService>();
 
             builder.Register<IA_Gameplay>(Lifetime.Singleton);
             builder.Register<InputService>(Lifetime.Singleton).As<IInputService>();

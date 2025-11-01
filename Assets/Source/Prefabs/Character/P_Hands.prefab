@@ -48,6 +48,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftGlove: {fileID: 1506402010085162329}
   _rightGlove: {fileID: 7033908584551634321}
+  _punches:
+    _serializedList:
+    - Key: 1
+      Value: {fileID: 295938114772473243, guid: 7ec06c0e9bf202d4f8a3d724f9e4cf81,
+        type: 3}
+    - Key: 2
+      Value: {fileID: 295938114772473243, guid: 7ec06c0e9bf202d4f8a3d724f9e4cf81,
+        type: 3}
+    - Key: 3
+      Value: {fileID: 295938114772473243, guid: 7ec06c0e9bf202d4f8a3d724f9e4cf81,
+        type: 3}
 --- !u!1001 &3311172369402299991
 PrefabInstance:
   m_ObjectHideFlags: 0
