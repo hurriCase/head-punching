@@ -48,21 +48,21 @@ namespace Source.Scripts.Gameplay.Gloves
                 _visualTransform,
                 startPoint,
                 punchTarget,
-                _invertRotation);
+                _invertRotation,
+                this,
+                static (self, startPoint, endPoint) => self.ProvideImpact(startPoint, endPoint));
 
             await PunchAnimation.Animate(animationConfig);
 
-            CompletePunch(startPoint, punchTarget);
+            _isPunching = false;
         }
 
-        private void CompletePunch(Vector3 startPoint, Vector3 punchTarget)
+        private void ProvideImpact(Vector3 startPoint, Vector3 punchTarget)
         {
             var punchDirection = (punchTarget - startPoint).normalized;
             var forceMultiplier = _punchChargeHandler.ReleaseCharge();
 
             _headController.ApplyPunchImpact(punchTarget, punchDirection, forceMultiplier);
-
-            _isPunching = false;
         }
     }
 }

@@ -138,8 +138,7 @@ namespace Source.Editor
                 _splineAnimation.PreviewPositionTarget,
                 _splineAnimation.PreviewRotationTarget,
                 startPosition,
-                endPosition,
-                false);
+                endPosition);
 
             _splineAnimation.Animate(config).Forget();
         }

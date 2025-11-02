@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using System;
+using Cysharp.Threading.Tasks;
 using PrimeTween;
 using Unity.Mathematics;
 using UnityEngine;
@@ -33,8 +34,11 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
                 PunchSettings,
                 onValueChange: static (state, currentTime) => state.UpdateTransformAlongPath(currentTime));
 
-            _ = Tween.LocalPosition(config.PositionTarget, initialLocalPosition, ReturnSettings);
-            _ = Tween.LocalRotation(config.RotationTarget, initialLocalRotation, ReturnSettings);
+            config.AnimationFinished?.Invoke(config.BoxingGlove, config.StartPoint, config.EndPoint);
+
+            await Sequence.Create()
+                .Chain(Tween.LocalPosition(config.PositionTarget, initialLocalPosition, ReturnSettings))
+                .Group(Tween.LocalRotation(config.RotationTarget, initialLocalRotation, ReturnSettings));
         }
 
         internal (Vector3 position, Quaternion rotation) EvaluateSplineTransform(float normalizedProgress)
