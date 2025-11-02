@@ -618,6 +618,11 @@ PrefabInstance:
       objectReference: {fileID: 330585545}
     - target: {fileID: 2274549147562896467, guid: f5a0b98ae80da7c44aac0215432a0c3b,
         type: 3}
+      propertyPath: _punchService
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2274549147562896467, guid: f5a0b98ae80da7c44aac0215432a0c3b,
+        type: 3}
       propertyPath: _glovesHandler
       value: 
       objectReference: {fileID: 1970557862}
