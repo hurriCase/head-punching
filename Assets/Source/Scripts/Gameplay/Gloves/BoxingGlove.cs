@@ -13,6 +13,9 @@ namespace Source.Scripts.Gameplay.Gloves
 
         [SerializeField] private Transform _punchTransform;
         [SerializeField] private Transform _visualTransform;
+        [SerializeField] private bool _invertRotation;
+
+        [SerializeField] private SplineAnimationConfig _animationConfig;
 
         [Inject] private IHeadController _headController;
 
@@ -20,14 +23,12 @@ namespace Source.Scripts.Gameplay.Gloves
 
         private bool _isPunching;
         private Vector3 _basePunchLocalPosition;
-        private Quaternion _basePunchLocalRotation;
 
         internal void Init(Observable<Unit> onMousePressed, Observable<Unit> onMouseReleased)
         {
             _gloveMovementHandler.Init();
 
             _basePunchLocalPosition = _punchTransform.localPosition;
-            _basePunchLocalRotation = _visualTransform.localRotation;
 
             onMousePressed
                 .Where(this, static (_, self) => self._isPunching is false)
@@ -45,16 +46,17 @@ namespace Source.Scripts.Gameplay.Gloves
         {
             _isPunching = true;
 
-            PunchAnimation.InsertRotationData(0, _visualTransform.rotation);
-
             var startPoint = _punchTransform.position;
             var punchTarget = _headController.GetPunchTarget(startPoint);
 
-            await PunchAnimation.Animate(
+            var animationConfig = new SplineAnimationConfig(
                 _punchTransform,
                 _visualTransform,
                 startPoint,
-                punchTarget);
+                punchTarget,
+                _invertRotation);
+
+            await PunchAnimation.Animate(animationConfig);
 
             CompletePunch(startPoint, punchTarget);
             ResetPunchTransform();
@@ -73,7 +75,6 @@ namespace Source.Scripts.Gameplay.Gloves
         private void ResetPunchTransform()
         {
             _punchTransform.localPosition = _basePunchLocalPosition;
-            _visualTransform.localRotation = _basePunchLocalRotation;
         }
     }
 }

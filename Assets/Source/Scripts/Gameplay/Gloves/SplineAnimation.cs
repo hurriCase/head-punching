@@ -14,35 +14,32 @@ namespace Source.Scripts.Gameplay.Gloves
         [field: SerializeField] internal Transform PositionTarget { get; private set; }
         [field: SerializeField] internal Transform RotationTarget { get; private set; }
 
-        private Vector3 _punchStartPoint;
-        private Vector3 _punchEndPoint;
+        private SplineAnimationConfig _animationConfig;
         private Vector3 _splineStartPoint;
         private Quaternion _transformRotation;
         private float _scale;
 
-        internal async UniTask Animate(
-            Transform positionTarget,
-            Transform rotationTarget,
-            Vector3 startPoint,
-            Vector3 endPoint)
+        internal async UniTask Animate(SplineAnimationConfig animationConfig)
         {
-            PositionTarget = positionTarget;
-            RotationTarget = rotationTarget;
-            _punchStartPoint = startPoint;
-            _punchEndPoint = endPoint;
+            _animationConfig = animationConfig;
+            var initialPosition = _animationConfig.PositionTarget.position;
+            var initialRotation = _animationConfig.RotationTarget.rotation;
+
+            RotationData[0] = new DataPoint<quaternion>(0, initialRotation);
 
             CalculateTransformation();
 
-            await Tween.Custom(this, 0f, 1f, 0.3f,
-                onValueChange: static (self, currentTime) => self.UpdateRuntimeTransform(currentTime));
+            await Tween.Custom(this, 0f, 1f, 0.5f,
+                onValueChange: static (self, currentTime) => self.UpdateTransformAlongPath(currentTime));
 
-            rotationTarget.position = startPoint;
+            _animationConfig.PositionTarget.position = initialPosition;
+            _animationConfig.RotationTarget.rotation = initialRotation;
         }
 
         internal void PreviewAtProgress(float normalizedProgress)
         {
-            var (position, rotation) = EvaluateSpline(normalizedProgress);
-            ApplyTransform(position, rotation);
+            var (position, rotation) = SampleSplineAt(normalizedProgress);
+            ApplyTransformForPreview(position, rotation);
         }
 
         internal void PreviewAtKnot(int knotIndex)
@@ -52,40 +49,52 @@ namespace Source.Scripts.Gameplay.Gloves
             PreviewAtProgress(normalizedProgress);
         }
 
-        internal void InsertRotationData(int index, quaternion rotation)
+        private void UpdateTransformAlongPath(float currentTime)
         {
-            RotationData[index] = new DataPoint<quaternion>(index, rotation);
-        }
-
-        private void UpdateRuntimeTransform(float currentTime)
-        {
-            var (splinePosition, splineRotation) = EvaluateSpline(currentTime);
+            var (splinePosition, splineRotation) = SampleSplineAt(currentTime);
 
             var offsetPoint = splinePosition - _splineStartPoint;
+
             var rotatedPoint = _transformRotation * offsetPoint;
             var scaledPoint = rotatedPoint * _scale;
-            var finalPosition = _punchStartPoint + scaledPoint;
+            var finalPosition = _animationConfig.StartPoint + scaledPoint;
 
-            ApplyTransform(finalPosition, splineRotation);
+            ApplyTransformForAnimation(finalPosition, splineRotation);
         }
 
-        private (Vector3 position, Quaternion rotation) EvaluateSpline(float normalizedProgress)
+        private (Vector3 position, Quaternion rotation) SampleSplineAt(float normalizedProgress)
         {
             var splineProgress = TimeCurve.Evaluate(normalizedProgress);
             var position = (Vector3)SplineContainer.EvaluatePosition(splineProgress);
-            var rotation = RotationData.Evaluate(
+            var rotation = (Quaternion)RotationData.Evaluate(
                 SplineContainer.Spline,
                 splineProgress,
                 PathIndexUnit.Normalized,
                 new InterpolatedQuaternion());
 
+            if (_animationConfig.InvertRotation is false)
+                return (position, rotation);
+
+            var localPosition = position - _splineStartPoint;
+            localPosition.x = -localPosition.x;
+            position = _splineStartPoint + localPosition;
+
+            var mirrorAxis = Vector3.right;
+            rotation = Quaternion.AngleAxis(180f, mirrorAxis) * rotation * Quaternion.AngleAxis(180f, mirrorAxis);
+
             return (position, rotation);
         }
 
-        private void ApplyTransform(Vector3 position, Quaternion rotation)
+        private void ApplyTransformForPreview(Vector3 position, Quaternion rotation)
         {
             PositionTarget.position = position;
             RotationTarget.rotation = rotation;
+        }
+
+        private void ApplyTransformForAnimation(Vector3 position, Quaternion rotation)
+        {
+            _animationConfig.PositionTarget.position = position;
+            _animationConfig.RotationTarget.rotation = rotation;
         }
 
         private void CalculateTransformation()
@@ -94,13 +103,13 @@ namespace Source.Scripts.Gameplay.Gloves
             var splineEndPoint = (Vector3)SplineContainer.EvaluatePosition(1f);
 
             var splineDirection = (splineEndPoint - _splineStartPoint).normalized;
-            var punchDirection = (_punchEndPoint - _punchStartPoint).normalized;
+            var animationDirection = (_animationConfig.EndPoint - _animationConfig.StartPoint).normalized;
 
             var splineLength = Vector3.Distance(_splineStartPoint, splineEndPoint);
-            var punchLength = Vector3.Distance(_punchStartPoint, _punchEndPoint);
+            var animationLength = Vector3.Distance(_animationConfig.StartPoint, _animationConfig.EndPoint);
 
-            _scale = punchLength / splineLength;
-            _transformRotation = Quaternion.FromToRotation(splineDirection, punchDirection);
+            _scale = animationLength / splineLength;
+            _transformRotation = Quaternion.FromToRotation(splineDirection, animationDirection);
         }
     }
 }
