@@ -79,8 +79,7 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
             localPosition.x = -localPosition.x;
             position = splineStartPoint + localPosition;
 
-            var mirrorAxis = Vector3.right;
-            rotation = Quaternion.AngleAxis(180f, mirrorAxis) * rotation * Quaternion.AngleAxis(180f, mirrorAxis);
+            rotation = new Quaternion(-rotation.x, rotation.y, rotation.z, -rotation.w);
 
             return (position, rotation);
         }
