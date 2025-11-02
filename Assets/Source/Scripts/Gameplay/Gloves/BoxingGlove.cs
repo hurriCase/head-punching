@@ -12,21 +12,20 @@ namespace Source.Scripts.Gameplay.Gloves
     internal sealed class BoxingGlove : MonoBehaviour
     {
         [SerializeField] private SerializedDictionary<PunchType, SplineAnimation> _punches;
-
         [SerializeField] private PunchChargeHandler _punchChargeHandler;
-
         [SerializeField] private Transform _punchTransform;
         [SerializeField] private Transform _visualTransform;
 
+        [Header("Punch Detection")]
+        [SerializeField] private float _uppercutAngleThreshold = 45f;
+        [SerializeField] private float _hookAngleThreshold = 60f;
+
         [Inject] private IHeadController _headController;
 
-        private SplineAnimation _punchAnimation;
         private bool _isPunching;
 
         internal void Init(Observable<Unit> onMousePressed, Observable<Unit> onMouseReleased)
         {
-            _punchAnimation = _punches[PunchType.Uppercut];
-
             onMousePressed
                 .Where(this, static (_, self) => self._isPunching is false)
                 .Subscribe(this, static (_, self) => self._punchChargeHandler.StartCharge())
@@ -46,6 +45,9 @@ namespace Source.Scripts.Gameplay.Gloves
             var startPoint = _punchTransform.position;
             var punchTarget = _headController.GetPunchTarget(startPoint);
 
+            var punchType = DeterminePunchType(startPoint, punchTarget);
+            var punchAnimation = _punches[punchType];
+
             var animationConfig = new SplineAnimationConfig(
                 _punchTransform,
                 _visualTransform,
@@ -54,9 +56,24 @@ namespace Source.Scripts.Gameplay.Gloves
                 this,
                 static (self, startPoint, endPoint) => self.ProvideImpact(startPoint, endPoint));
 
-            await _punchAnimation.Animate(animationConfig);
+            await punchAnimation.Animate(animationConfig);
 
             _isPunching = false;
+        }
+
+        private PunchType DeterminePunchType(Vector3 startPoint, Vector3 targetPoint)
+        {
+            var direction = (targetPoint - startPoint).normalized;
+            var verticalAngle = Vector3.Angle(Vector3.up, direction);
+
+            if (verticalAngle < _uppercutAngleThreshold)
+                return PunchType.Uppercut;
+
+            var horizontalDirection = new Vector3(direction.x, 0f, direction.z).normalized;
+            var forwardDirection = Vector3.forward;
+            var horizontalAngle = Vector3.Angle(forwardDirection, horizontalDirection);
+
+            return horizontalAngle > _hookAngleThreshold ? PunchType.Hook : PunchType.Jab;
         }
 
         private void ProvideImpact(Vector3 startPoint, Vector3 punchTarget)

@@ -95,17 +95,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7209733592974324196, guid: 0a92a7dde4558b24dbd198b80659ee31,
         type: 3}
-      propertyPath: _punches._serializedList.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7209733592974324196, guid: 0a92a7dde4558b24dbd198b80659ee31,
-        type: 3}
-      propertyPath: _punches._serializedList.Array.data[0].Key
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7209733592974324196, guid: 0a92a7dde4558b24dbd198b80659ee31,
-        type: 3}
       propertyPath: _punches._serializedList.Array.data[0].Value
+      value: 
+      objectReference: {fileID: 295938114772473243, guid: a4d859f6fc687794fb8b565cef3d4f31,
+        type: 3}
+    - target: {fileID: 7209733592974324196, guid: 0a92a7dde4558b24dbd198b80659ee31,
+        type: 3}
+      propertyPath: _punches._serializedList.Array.data[1].Value
+      value: 
+      objectReference: {fileID: 295938114772473243, guid: 43448e86cbbaf9443875a6cf99f69421,
+        type: 3}
+    - target: {fileID: 7209733592974324196, guid: 0a92a7dde4558b24dbd198b80659ee31,
+        type: 3}
+      propertyPath: _punches._serializedList.Array.data[2].Value
       value: 
       objectReference: {fileID: 295938114772473243, guid: e2248e76ea3d20641b9b31d9233f6a34,
         type: 3}

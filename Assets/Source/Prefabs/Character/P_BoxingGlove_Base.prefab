@@ -109,11 +109,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f303aafedb34d8a84fc11dc79e3dfed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _punches:
+    _serializedList:
+    - Key: 1
+      Value: {fileID: 0}
+    - Key: 2
+      Value: {fileID: 0}
+    - Key: 3
+      Value: {fileID: 0}
   _punchChargeHandler: {fileID: 4409107709783659064}
   _punchTransform: {fileID: 4347808990263598526}
   _visualTransform: {fileID: 3246762746875897431}
-  _offset: {x: 0, y: 0, z: 0}
-  _invertRotation: 0
+  _uppercutAngleThreshold: 82
+  _hookAngleThreshold: 35
 --- !u!114 &4409107709783659064
 MonoBehaviour:
   m_ObjectHideFlags: 0
