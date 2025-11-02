@@ -15,26 +15,23 @@ namespace Source.Scripts.Gameplay.Gloves
         [field: SerializeField] internal Transform PositionTarget { get; private set; }
         [field: SerializeField] internal Transform RotationTarget { get; private set; }
 
-        private readonly AnimationState _animationState = new();
+        private SplineAnimationConfig _config;
+        private SplineTransformation _transformation;
 
         internal async UniTask Animate(SplineAnimationConfig config)
         {
             var initialPosition = config.PositionTarget.position;
             var initialRotation = config.RotationTarget.rotation;
 
-            var transformation = CalculateTransformation(config);
-
-            _animationState.Config = config;
-            _animationState.Transformation = transformation;
-            _animationState.SplineAnimation = this;
+            _config = config;
+            _transformation = CalculateTransformation();
 
             await Tween.Custom(
-                _animationState,
+                this,
                 0f,
                 1f,
                 AnimationSettings,
-                onValueChange: static (state, currentTime) =>
-                    state.SplineAnimation.UpdateTransformAlongPath(currentTime, state.Config, state.Transformation));
+                onValueChange: static (state, currentTime) => state.UpdateTransformAlongPath(currentTime));
 
             config.PositionTarget.position = initialPosition;
             config.RotationTarget.rotation = initialRotation;
@@ -53,24 +50,24 @@ namespace Source.Scripts.Gameplay.Gloves
             PreviewAtProgress(normalizedProgress);
         }
 
-        private void UpdateTransformAlongPath(float currentTime, SplineAnimationConfig config, SplineTransformation transformation)
+        private void UpdateTransformAlongPath(float currentTime)
         {
             var (splinePosition, splineRotation) = EvaluateSplineTransform(currentTime);
 
-            if (config.InvertRotation)
-                (splinePosition, splineRotation) = ApplyInversion(splinePosition, splineRotation, transformation.SplineStartPoint);
+            if (_config.InvertRotation)
+                (splinePosition, splineRotation) =
+                    ApplyInversion(splinePosition, splineRotation, _transformation.SplineStartPoint);
 
-            var finalPosition = TransformPosition(splinePosition, config, transformation);
-
-            ApplyTransform(config.PositionTarget, config.RotationTarget, finalPosition, splineRotation);
+            var finalPosition = TransformPosition(splinePosition);
+            ApplyTransform(_config.PositionTarget, _config.RotationTarget, finalPosition, splineRotation);
         }
 
-        private Vector3 TransformPosition(Vector3 splinePosition, SplineAnimationConfig config, SplineTransformation transformation)
+        private Vector3 TransformPosition(Vector3 splinePosition)
         {
-            var offsetPoint = splinePosition - transformation.SplineStartPoint;
-            var rotatedPoint = transformation.Rotation * offsetPoint;
-            var scaledPoint = rotatedPoint * transformation.Scale;
-            return config.StartPoint + scaledPoint;
+            var offsetPoint = splinePosition - _transformation.SplineStartPoint;
+            var rotatedPoint = _transformation.Rotation * offsetPoint;
+            var scaledPoint = rotatedPoint * _transformation.Scale;
+            return _config.StartPoint + scaledPoint;
         }
 
         private (Vector3 position, Quaternion rotation) EvaluateSplineTransform(float normalizedProgress)
@@ -101,16 +98,16 @@ namespace Source.Scripts.Gameplay.Gloves
             return (position, rotation);
         }
 
-        private SplineTransformation CalculateTransformation(SplineAnimationConfig config)
+        private SplineTransformation CalculateTransformation()
         {
             var splineStartPoint = (Vector3)SplineContainer.EvaluatePosition(0f);
             var splineEndPoint = (Vector3)SplineContainer.EvaluatePosition(1f);
 
             var splineDirection = (splineEndPoint - splineStartPoint).normalized;
-            var animationDirection = (config.EndPoint - config.StartPoint).normalized;
+            var animationDirection = (_config.EndPoint - _config.StartPoint).normalized;
 
             var splineLength = Vector3.Distance(splineStartPoint, splineEndPoint);
-            var animationLength = Vector3.Distance(config.StartPoint, config.EndPoint);
+            var animationLength = Vector3.Distance(_config.StartPoint, _config.EndPoint);
 
             var scale = animationLength / splineLength;
             var rotation = Quaternion.FromToRotation(splineDirection, animationDirection);
