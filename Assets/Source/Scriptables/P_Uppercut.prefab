@@ -254,8 +254,8 @@ MonoBehaviour:
     useUnscaledTime: 0
     _useFixedUpdate: 0
     _updateType: 0
-  <PositionTarget>k__BackingField: {fileID: 1386541934247296983}
-  <RotationTarget>k__BackingField: {fileID: 172729095750485054}
+  <PreviewPositionTarget>k__BackingField: {fileID: 1386541934247296983}
+  <PreviewRotationTarget>k__BackingField: {fileID: 172729095750485054}
 --- !u!1001 &507697409085489227
 PrefabInstance:
   m_ObjectHideFlags: 0

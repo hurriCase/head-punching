@@ -12,8 +12,9 @@ namespace Source.Scripts.Gameplay.Gloves
         [field: SerializeField] internal SplineData<quaternion> RotationData { get; private set; } = new();
         [field: SerializeField] internal AnimationCurve TimeCurve { get; private set; }
         [field: SerializeField] internal TweenSettings AnimationSettings { get; private set; }
-        [field: SerializeField] internal Transform PositionTarget { get; private set; }
-        [field: SerializeField] internal Transform RotationTarget { get; private set; }
+
+        [field: SerializeField] internal Transform PreviewPositionTarget { get; private set; }
+        [field: SerializeField] internal Transform PreviewRotationTarget { get; private set; }
 
         private SplineAnimationConfig _config;
         private SplineTransformation _transformation;
@@ -37,17 +38,17 @@ namespace Source.Scripts.Gameplay.Gloves
             config.RotationTarget.rotation = initialRotation;
         }
 
-        internal void PreviewAtProgress(float normalizedProgress)
+        internal (Vector3 position, Quaternion rotation) EvaluateSplineTransform(float normalizedProgress)
         {
-            var (position, rotation) = EvaluateSplineTransform(normalizedProgress);
-            ApplyTransform(PositionTarget, RotationTarget, position, rotation);
-        }
+            var splineProgress = TimeCurve.Evaluate(normalizedProgress);
+            var position = (Vector3)SplineContainer.EvaluatePosition(splineProgress);
+            var rotation = (Quaternion)RotationData.Evaluate(
+                SplineContainer.Spline,
+                splineProgress,
+                PathIndexUnit.Normalized,
+                new InterpolatedQuaternion());
 
-        internal void PreviewAtKnot(int knotIndex)
-        {
-            var normalizedProgress =
-                SplineContainer.Spline.ConvertIndexUnit(knotIndex, PathIndexUnit.Knot, PathIndexUnit.Normalized);
-            PreviewAtProgress(normalizedProgress);
+            return (position, rotation);
         }
 
         private void UpdateTransformAlongPath(float currentTime)
@@ -59,7 +60,8 @@ namespace Source.Scripts.Gameplay.Gloves
                     ApplyInversion(splinePosition, splineRotation, _transformation.SplineStartPoint);
 
             var finalPosition = TransformPosition(splinePosition);
-            ApplyTransform(_config.PositionTarget, _config.RotationTarget, finalPosition, splineRotation);
+            _config.PositionTarget.position = finalPosition;
+            _config.RotationTarget.rotation = splineRotation;
         }
 
         private Vector3 TransformPosition(Vector3 splinePosition)
@@ -68,19 +70,6 @@ namespace Source.Scripts.Gameplay.Gloves
             var rotatedPoint = _transformation.Rotation * offsetPoint;
             var scaledPoint = rotatedPoint * _transformation.Scale;
             return _config.StartPoint + scaledPoint;
-        }
-
-        private (Vector3 position, Quaternion rotation) EvaluateSplineTransform(float normalizedProgress)
-        {
-            var splineProgress = TimeCurve.Evaluate(normalizedProgress);
-            var position = (Vector3)SplineContainer.EvaluatePosition(splineProgress);
-            var rotation = (Quaternion)RotationData.Evaluate(
-                SplineContainer.Spline,
-                splineProgress,
-                PathIndexUnit.Normalized,
-                new InterpolatedQuaternion());
-
-            return (position, rotation);
         }
 
         private (Vector3 position, Quaternion rotation) ApplyInversion(
@@ -113,16 +102,6 @@ namespace Source.Scripts.Gameplay.Gloves
             var rotation = Quaternion.FromToRotation(splineDirection, animationDirection);
 
             return new SplineTransformation(splineStartPoint, rotation, scale);
-        }
-
-        private void ApplyTransform(
-            Transform positionTarget,
-            Transform rotationTarget,
-            Vector3 position,
-            Quaternion rotation)
-        {
-            positionTarget.position = position;
-            rotationTarget.rotation = rotation;
         }
     }
 }

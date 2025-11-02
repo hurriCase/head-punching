@@ -39,7 +39,9 @@ namespace Source.Editor
             EditorGUILayout.PropertyField(_timeCurveProperty);
             var curveChanged = EditorGUI.EndChangeCheck();
 
-            if (!_splineAnimation.SplineContainer)
+            if (!_splineAnimation.SplineContainer
+                || !_splineAnimation.PreviewPositionTarget
+                || !_splineAnimation.PreviewRotationTarget)
             {
                 serializedObject.ApplyModifiedProperties();
                 return;
@@ -51,14 +53,31 @@ namespace Source.Editor
             _previewProgress = EditorGUILayout.Slider("Preview Progress", _previewProgress, 0f, 1f);
             if (EditorGUI.EndChangeCheck() || curveChanged)
             {
-                _splineAnimation.PreviewAtProgress(_previewProgress);
+                PreviewAtProgress(_previewProgress);
                 EditorPrefs.SetFloat(PreviewProgressKey, _previewProgress);
             }
 
             if (GUILayout.Button("Sync With Knots"))
-                SyncRotationDataWithKnots(_splineAnimation);
+                SyncRotationDataWithKnots();
 
             serializedObject.ApplyModifiedProperties();
+        }
+
+        private void PreviewAtProgress(float normalizedProgress)
+        {
+            var (position, rotation) = _splineAnimation.EvaluateSplineTransform(normalizedProgress);
+            _splineAnimation.PreviewPositionTarget.position = position;
+            _splineAnimation.PreviewRotationTarget.rotation = rotation;
+        }
+
+        private void PreviewAtKnot(int knotIndex)
+        {
+            var normalizedProgress = _splineAnimation.SplineContainer.Spline.ConvertIndexUnit(
+                knotIndex,
+                PathIndexUnit.Knot,
+                PathIndexUnit.Normalized);
+
+            PreviewAtProgress(normalizedProgress);
         }
 
         private void DrawKnotEditing()
@@ -69,11 +88,11 @@ namespace Source.Editor
             _knotIndex = EditorGUILayout.IntSlider("Knot Index", _knotIndex, 0, knotCount - 1);
             if (EditorGUI.EndChangeCheck())
             {
-                _splineAnimation.PreviewAtKnot(_knotIndex);
+                PreviewAtKnot(_knotIndex);
                 EditorPrefs.SetInt(KnotIndexKey, _knotIndex);
             }
 
-            var rotationTarget = _splineAnimation.RotationTarget;
+            var rotationTarget = _splineAnimation.PreviewRotationTarget;
 
             if (!rotationTarget || GUILayout.Button("Capture Current Rotation"))
                 CaptureRotationForCurrentKnot(rotationTarget.rotation);
@@ -81,7 +100,7 @@ namespace Source.Editor
 
         private void CaptureRotationForCurrentKnot(Quaternion rotation)
         {
-            Undo.RecordObject(_splineAnimation, "Capture Rotation");
+            using var undoScope = new UndoScope(_splineAnimation, serializedObject, "Capture Rotation");
 
             while (_splineAnimation.RotationData.Count <= _knotIndex)
             {
@@ -91,29 +110,23 @@ namespace Source.Editor
             }
 
             _splineAnimation.RotationData[_knotIndex] = new DataPoint<quaternion>(_knotIndex, rotation);
-
-            EditorUtility.SetDirty(_splineAnimation);
-            serializedObject.Update();
         }
 
-        private void SyncRotationDataWithKnots(SplineAnimation data)
+        private void SyncRotationDataWithKnots()
         {
-            var spline = data.SplineContainer.Spline;
+            var spline = _splineAnimation.SplineContainer.Spline;
             var knotCount = spline.Count;
 
-            Undo.RecordObject(data, "Sync Rotations");
+            using var undoScope = new UndoScope(_splineAnimation, serializedObject, "Sync Rotations");
 
-            data.RotationData.Clear();
+            _splineAnimation.RotationData.Clear();
 
             for (var i = 0; i < knotCount; i++)
             {
                 var knotRotation = spline[i].Rotation;
                 var rotationData = new DataPoint<quaternion>(i, knotRotation);
-                data.RotationData.Add(rotationData);
+                _splineAnimation.RotationData.Add(rotationData);
             }
-
-            EditorUtility.SetDirty(data);
-            serializedObject.Update();
         }
 
         private SerializedProperty FindField(string name) => serializedObject.FindProperty(GetBackingField(name));
