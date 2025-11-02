@@ -1,6 +1,7 @@
 ﻿using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Gameplay.Head;
+using Source.Scripts.Input;
 using UnityEngine;
 using VContainer;
 
@@ -8,23 +9,20 @@ namespace Source.Scripts.Gameplay.Gloves
 {
     internal sealed class BoxingGlove : MonoBehaviour
     {
-        [SerializeField] private GloveMovementHandler _gloveMovementHandler;
         [SerializeField] private PunchChargeHandler _punchChargeHandler;
 
         [SerializeField] private Transform _punchTransform;
         [SerializeField] private Transform _visualTransform;
+        [SerializeField] private Vector3 _offset;
         [SerializeField] private bool _invertRotation;
 
         [Inject] private IHeadController _headController;
 
         internal SplineAnimation PunchAnimation { get; set; }
-
         private bool _isPunching;
 
         internal void Init(Observable<Unit> onMousePressed, Observable<Unit> onMouseReleased)
         {
-            _gloveMovementHandler.Init();
-
             onMousePressed
                 .Where(this, static (_, self) => self._isPunching is false)
                 .Subscribe(this, static (_, self) => self._punchChargeHandler.StartCharge())

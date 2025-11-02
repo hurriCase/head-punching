@@ -20,8 +20,8 @@ namespace Source.Scripts.Gameplay.Gloves
 
         internal async UniTask Animate(SplineAnimationConfig config)
         {
-            var initialPosition = config.PositionTarget.position;
-            var initialRotation = config.RotationTarget.rotation;
+            var initialLocalPosition = config.PositionTarget.localPosition;
+            var initialLocalRotation = config.RotationTarget.localRotation;
 
             _config = config;
             _transformation = CalculateTransformation();
@@ -33,8 +33,8 @@ namespace Source.Scripts.Gameplay.Gloves
                 PunchSettings,
                 onValueChange: static (state, currentTime) => state.UpdateTransformAlongPath(currentTime));
 
-            _ = Tween.Position(config.PositionTarget, initialPosition, ReturnSettings);
-            _ = Tween.Rotation(config.RotationTarget, initialRotation, ReturnSettings);
+            _ = Tween.LocalPosition(config.PositionTarget, initialLocalPosition, ReturnSettings);
+            _ = Tween.LocalRotation(config.RotationTarget, initialLocalRotation, ReturnSettings);
         }
 
         internal (Vector3 position, Quaternion rotation) EvaluateSplineTransform(float normalizedProgress)
