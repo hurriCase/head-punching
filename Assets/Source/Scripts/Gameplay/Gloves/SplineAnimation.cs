@@ -10,9 +10,8 @@ namespace Source.Scripts.Gameplay.Gloves
     {
         [field: SerializeField] internal SplineContainer SplineContainer { get; private set; }
         [field: SerializeField] internal SplineData<quaternion> RotationData { get; private set; } = new();
-        [field: SerializeField] internal AnimationCurve TimeCurve { get; private set; }
-        [field: SerializeField] internal TweenSettings AnimationSettings { get; private set; }
-
+        [field: SerializeField] internal TweenSettings PunchSettings { get; private set; }
+        [field: SerializeField] internal TweenSettings ReturnSettings { get; private set; }
         [field: SerializeField] internal Transform PreviewPositionTarget { get; private set; }
         [field: SerializeField] internal Transform PreviewRotationTarget { get; private set; }
 
@@ -31,20 +30,19 @@ namespace Source.Scripts.Gameplay.Gloves
                 this,
                 0f,
                 1f,
-                AnimationSettings,
+                PunchSettings,
                 onValueChange: static (state, currentTime) => state.UpdateTransformAlongPath(currentTime));
 
-            config.PositionTarget.position = initialPosition;
-            config.RotationTarget.rotation = initialRotation;
+            _ = Tween.Position(config.PositionTarget, initialPosition, ReturnSettings);
+            _ = Tween.Rotation(config.RotationTarget, initialRotation, ReturnSettings);
         }
 
         internal (Vector3 position, Quaternion rotation) EvaluateSplineTransform(float normalizedProgress)
         {
-            var splineProgress = TimeCurve.Evaluate(normalizedProgress);
-            var position = (Vector3)SplineContainer.EvaluatePosition(splineProgress);
+            var position = (Vector3)SplineContainer.EvaluatePosition(normalizedProgress);
             var rotation = (Quaternion)RotationData.Evaluate(
                 SplineContainer.Spline,
-                splineProgress,
+                normalizedProgress,
                 PathIndexUnit.Normalized,
                 new InterpolatedQuaternion());
 

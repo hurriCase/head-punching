@@ -205,41 +205,51 @@ MonoBehaviour:
           y: -0.09274614
           z: 0.05148092
           w: 0.9872719
-  <TimeCurve>k__BackingField:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0.32627672
-      outSlope: 0.32627672
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.80823016
-      value: 0.26370668
-      inSlope: 0.2420372
-      outSlope: 0.2420372
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.12168922
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 3.8394637
-      outSlope: 3.8394637
-      tangentMode: 34
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  <AnimationSettings>k__BackingField:
+  <PunchSettings>k__BackingField:
     duration: 0.5
+    ease: -1
+    customEase:
+      serializedVersion: 2
+      m_Curve:
+      - serializedVersion: 3
+        time: 0
+        value: 0
+        inSlope: 0.3336244
+        outSlope: 0.3336244
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0
+        outWeight: 0.33333334
+      - serializedVersion: 3
+        time: 0.6983889
+        value: 0.23299956
+        inSlope: 0.025131466
+        outSlope: 0.025131466
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.14000252
+      - serializedVersion: 3
+        time: 1
+        value: 1
+        inSlope: 2.5430112
+        outSlope: 2.5430112
+        tangentMode: 34
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    cycles: 1
+    cycleMode: 0
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
+  <ReturnSettings>k__BackingField:
+    duration: 0.6
     ease: 0
     customEase:
       serializedVersion: 2

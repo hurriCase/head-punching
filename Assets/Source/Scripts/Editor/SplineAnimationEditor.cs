@@ -1,4 +1,6 @@
-﻿using Source.Scripts.Gameplay.Gloves;
+﻿using System.Linq;
+using Cysharp.Threading.Tasks;
+using Source.Scripts.Gameplay.Gloves;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;
@@ -25,19 +27,15 @@ namespace Source.Editor
             _knotIndex = EditorPrefs.GetInt(KnotIndexKey, 0);
 
             _splineAnimation = (SplineAnimation)target;
-            _timeCurveProperty = FindField(nameof(_splineAnimation.TimeCurve));
+            _timeCurveProperty = FindField(nameof(_splineAnimation.PunchSettings));
         }
 
         public override void OnInspectorGUI()
         {
             serializedObject.Update();
 
-            var timeCurvePropertyName = GetBackingField(nameof(_splineAnimation.TimeCurve));
+            var timeCurvePropertyName = GetBackingField(nameof(_splineAnimation.PunchSettings));
             DrawPropertiesExcluding(serializedObject, timeCurvePropertyName);
-
-            EditorGUI.BeginChangeCheck();
-            EditorGUILayout.PropertyField(_timeCurveProperty);
-            var curveChanged = EditorGUI.EndChangeCheck();
 
             if (!_splineAnimation.SplineContainer
                 || !_splineAnimation.PreviewPositionTarget
@@ -48,14 +46,7 @@ namespace Source.Editor
             }
 
             DrawKnotEditing();
-
-            EditorGUI.BeginChangeCheck();
-            _previewProgress = EditorGUILayout.Slider("Preview Progress", _previewProgress, 0f, 1f);
-            if (EditorGUI.EndChangeCheck() || curveChanged)
-            {
-                PreviewAtProgress(_previewProgress);
-                EditorPrefs.SetFloat(PreviewProgressKey, _previewProgress);
-            }
+            DrawPreview();
 
             if (GUILayout.Button("Sync With Knots"))
                 SyncRotationDataWithKnots();
@@ -63,21 +54,22 @@ namespace Source.Editor
             serializedObject.ApplyModifiedProperties();
         }
 
-        private void PreviewAtProgress(float normalizedProgress)
+        private void DrawPreview()
         {
-            var (position, rotation) = _splineAnimation.EvaluateSplineTransform(normalizedProgress);
-            _splineAnimation.PreviewPositionTarget.position = position;
-            _splineAnimation.PreviewRotationTarget.rotation = rotation;
-        }
+            EditorGUI.BeginChangeCheck();
 
-        private void PreviewAtKnot(int knotIndex)
-        {
-            var normalizedProgress = _splineAnimation.SplineContainer.Spline.ConvertIndexUnit(
-                knotIndex,
-                PathIndexUnit.Knot,
-                PathIndexUnit.Normalized);
+            EditorGUILayout.PropertyField(_timeCurveProperty);
 
-            PreviewAtProgress(normalizedProgress);
+            _previewProgress = EditorGUILayout.Slider("Preview Progress", _previewProgress, 0f, 1f);
+
+            if (GUILayout.Button("Start animation"))
+                AnimatePreview();
+
+            if (EditorGUI.EndChangeCheck() is false)
+                return;
+
+            PreviewAtProgress(_previewProgress);
+            EditorPrefs.SetFloat(PreviewProgressKey, _previewProgress);
         }
 
         private void DrawKnotEditing()
@@ -88,13 +80,18 @@ namespace Source.Editor
             _knotIndex = EditorGUILayout.IntSlider("Knot Index", _knotIndex, 0, knotCount - 1);
             if (EditorGUI.EndChangeCheck())
             {
-                PreviewAtKnot(_knotIndex);
+                var normalizedProgress = _splineAnimation.SplineContainer.Spline.ConvertIndexUnit(
+                    _knotIndex,
+                    PathIndexUnit.Knot,
+                    PathIndexUnit.Normalized);
+
+                PreviewAtProgress(normalizedProgress);
                 EditorPrefs.SetInt(KnotIndexKey, _knotIndex);
             }
 
             var rotationTarget = _splineAnimation.PreviewRotationTarget;
 
-            if (!rotationTarget || GUILayout.Button("Capture Current Rotation"))
+            if (GUILayout.Button("Capture Current Rotation"))
                 CaptureRotationForCurrentKnot(rotationTarget.rotation);
         }
 
@@ -127,6 +124,31 @@ namespace Source.Editor
                 var rotationData = new DataPoint<quaternion>(i, knotRotation);
                 _splineAnimation.RotationData.Add(rotationData);
             }
+        }
+
+        private void AnimatePreview()
+        {
+            var splineTransform = _splineAnimation.SplineContainer.transform;
+            var knots = _splineAnimation.SplineContainer.Spline.Knots.ToArray();
+
+            var startPosition = splineTransform.TransformPoint(knots[0].Position);
+            var endPosition = splineTransform.TransformPoint(knots[^1].Position);
+
+            var config = new SplineAnimationConfig(
+                _splineAnimation.PreviewPositionTarget,
+                _splineAnimation.PreviewRotationTarget,
+                startPosition,
+                endPosition,
+                false);
+
+            _splineAnimation.Animate(config).Forget();
+        }
+
+        private void PreviewAtProgress(float normalizedProgress)
+        {
+            var (position, rotation) = _splineAnimation.EvaluateSplineTransform(normalizedProgress);
+            _splineAnimation.PreviewPositionTarget.position = position;
+            _splineAnimation.PreviewRotationTarget.rotation = rotation;
         }
 
         private SerializedProperty FindField(string name) => serializedObject.FindProperty(GetBackingField(name));
