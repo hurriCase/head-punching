@@ -14,7 +14,6 @@ namespace Source.Scripts.Gameplay.Gloves
 
         [SerializeField] private Transform _punchTransform;
         [SerializeField] private Transform _visualTransform;
-        [SerializeField] private Vector3 _offset;
         [SerializeField] private bool _invertRotation;
 
         [Inject] private IHeadController _headController;

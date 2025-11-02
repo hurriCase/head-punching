@@ -73,7 +73,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4141891910319206874}
   - component: {fileID: 7209733592974324196}
-  - component: {fileID: 3928011534734931536}
   - component: {fileID: 4409107709783659064}
   m_Layer: 0
   m_Name: P_BoxingGlove_Base
@@ -110,77 +109,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5f303aafedb34d8a84fc11dc79e3dfed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _gloveMovementHandler: {fileID: 3928011534734931536}
   _punchChargeHandler: {fileID: 4409107709783659064}
   _punchTransform: {fileID: 4347808990263598526}
   _visualTransform: {fileID: 3246762746875897431}
---- !u!114 &3928011534734931536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8304394269838542190}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0ebddbfa09b4395867956ad164be5b5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _punchTransform: {fileID: 4347808990263598526}
-  _visualTransform: {fileID: 3246762746875897431}
-  _offset: {x: 0, y: -0.2, z: 0}
-  _punchSettings:
-    duration: 0.1
-    ease: 9
-    customEase:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    cycles: 1
-    cycleMode: 0
-    startDelay: 0
-    endDelay: 0
-    useUnscaledTime: 0
-    _useFixedUpdate: 0
-    _updateType: 0
-  _returnSettings:
-    duration: 0.2
-    ease: 0
-    customEase:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    cycles: 1
-    cycleMode: 0
-    startDelay: 0
-    endDelay: 0
-    useUnscaledTime: 0
-    _useFixedUpdate: 0
-    _updateType: 0
-  _shakeSettings:
-    strength: {x: 0.01, y: 0.01, z: 0}
-    duration: 1
-    frequency: 10
-    enableFalloff: 0
-    falloffEase: 0
-    strengthOverTime:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-    asymmetry: 0
-    easeBetweenShakes: 0
-    cycles: -1
-    startDelay: 0
-    endDelay: 0
-    useUnscaledTime: 0
-    _useFixedUpdate: 0
-    _updateType: 0
+  _offset: {x: 0, y: 0, z: 0}
+  _invertRotation: 0
 --- !u!114 &4409107709783659064
 MonoBehaviour:
   m_ObjectHideFlags: 0
