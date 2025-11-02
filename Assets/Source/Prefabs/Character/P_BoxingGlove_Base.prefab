@@ -113,6 +113,7 @@ MonoBehaviour:
   _gloveMovementHandler: {fileID: 3928011534734931536}
   _punchChargeHandler: {fileID: 4409107709783659064}
   _punchTransform: {fileID: 4347808990263598526}
+  _visualTransform: {fileID: 3246762746875897431}
 --- !u!114 &3928011534734931536
 MonoBehaviour:
   m_ObjectHideFlags: 0

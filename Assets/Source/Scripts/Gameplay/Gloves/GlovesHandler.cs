@@ -1,4 +1,5 @@
-﻿using Source.Scripts.Input;
+﻿using AYellowpaper.SerializedCollections;
+using Source.Scripts.Input;
 using UnityEngine;
 using VContainer;
 
@@ -11,8 +12,15 @@ namespace Source.Scripts.Gameplay.Gloves
 
         [Inject] private IInputService _inputService;
 
+        [SerializeField] private SerializedDictionary<PunchType, SplineAnimation> _punches;
+
         public void Init()
         {
+            var uppercutAnimation = _punches[PunchType.Uppercut];
+
+            _leftGlove.PunchAnimation = uppercutAnimation;
+            _rightGlove.PunchAnimation = uppercutAnimation;
+
             _leftGlove.Init(_inputService.OnLeftPressed, _inputService.OnLeftReleased);
             _rightGlove.Init(_inputService.OnRightPressed, _inputService.OnRightReleased);
         }

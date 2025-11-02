@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9530affe7134481bb967be0ddc4ac901, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _leftGlove: {fileID: 1506402010085162329}
-  _rightGlove: {fileID: 7033908584551634321}
+  _leftGlove: {fileID: 7033908584551634321}
+  _rightGlove: {fileID: 1506402010085162329}
   _punches:
     _serializedList:
     - Key: 1
@@ -120,7 +120,7 @@ PrefabInstance:
     - target: {fileID: 6584244217566865228, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
       propertyPath: m_Name
-      value: P_BoxingGlove_Right
+      value: P_BoxingGlove_Left
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -206,7 +206,7 @@ PrefabInstance:
     - target: {fileID: 6584244217566865228, guid: 3161f006af10c5042adbcb2cbdf1873a,
         type: 3}
       propertyPath: m_Name
-      value: P_BoxingGlove_Left
+      value: P_BoxingGlove_Right
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

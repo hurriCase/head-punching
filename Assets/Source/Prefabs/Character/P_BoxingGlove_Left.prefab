@@ -28,11 +28,6 @@ PrefabInstance:
       propertyPath: _offset.x
       value: -0.4
       objectReference: {fileID: 0}
-    - target: {fileID: 3928011534734931536, guid: 0a92a7dde4558b24dbd198b80659ee31,
-        type: 3}
-      propertyPath: _visualTransform
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 4141891910319206874, guid: 0a92a7dde4558b24dbd198b80659ee31,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -82,11 +77,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4409107709783659064, guid: 0a92a7dde4558b24dbd198b80659ee31,
-        type: 3}
-      propertyPath: _visualTransform
-      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 7209733592974324196, guid: 0a92a7dde4558b24dbd198b80659ee31,
         type: 3}

@@ -12,9 +12,11 @@ namespace Source.Scripts.Gameplay.Gloves
         [SerializeField] private PunchChargeHandler _punchChargeHandler;
 
         [SerializeField] private Transform _punchTransform;
+        [SerializeField] private Transform _visualTransform;
 
         [Inject] private IHeadController _headController;
-        [Inject] private IPunchService _punchService;
+
+        internal SplineAnimation PunchAnimation { get; set; }
 
         private bool _isPunching;
         private Vector3 _basePunchLocalPosition;
@@ -25,7 +27,7 @@ namespace Source.Scripts.Gameplay.Gloves
             _gloveMovementHandler.Init();
 
             _basePunchLocalPosition = _punchTransform.localPosition;
-            _basePunchLocalRotation = _punchTransform.localRotation;
+            _basePunchLocalRotation = _visualTransform.localRotation;
 
             onMousePressed
                 .Where(this, static (_, self) => self._isPunching is false)
@@ -43,9 +45,16 @@ namespace Source.Scripts.Gameplay.Gloves
         {
             _isPunching = true;
 
+            PunchAnimation.InsertRotationData(0, _visualTransform.rotation);
+
             var startPoint = _punchTransform.position;
             var punchTarget = _headController.GetPunchTarget(startPoint);
-            await _punchService.ExecutePunch(_punchTransform, startPoint, punchTarget);
+
+            await PunchAnimation.Animate(
+                _punchTransform,
+                _visualTransform,
+                startPoint,
+                punchTarget);
 
             CompletePunch(startPoint, punchTarget);
             ResetPunchTransform();
@@ -64,7 +73,7 @@ namespace Source.Scripts.Gameplay.Gloves
         private void ResetPunchTransform()
         {
             _punchTransform.localPosition = _basePunchLocalPosition;
-            _punchTransform.localRotation = _basePunchLocalRotation;
+            _visualTransform.localRotation = _basePunchLocalRotation;
         }
     }
 }
