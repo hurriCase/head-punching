@@ -10,7 +10,6 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
         internal Transform RotationTarget { get; }
         internal Vector3 StartPoint { get; }
         internal Vector3 EndPoint { get; }
-        internal bool InvertRotation { get; }
         internal BoxingGlove BoxingGlove { get; }
         internal Action<BoxingGlove, Vector3, Vector3> AnimationFinished { get; }
 
@@ -19,7 +18,6 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
             Transform rotationTarget,
             Vector3 startPoint,
             Vector3 endPoint,
-            bool invertRotation = false,
             BoxingGlove boxingGlove = null,
             Action<BoxingGlove, Vector3, Vector3> animationFinished = null)
         {
@@ -27,7 +25,6 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
             RotationTarget = rotationTarget;
             StartPoint = startPoint;
             EndPoint = endPoint;
-            InvertRotation = invertRotation;
             BoxingGlove = boxingGlove;
             AnimationFinished = animationFinished;
         }

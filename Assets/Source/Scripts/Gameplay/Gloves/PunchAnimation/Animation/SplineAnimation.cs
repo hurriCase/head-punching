@@ -1,5 +1,4 @@
-﻿using System;
-using Cysharp.Threading.Tasks;
+﻿using Cysharp.Threading.Tasks;
 using PrimeTween;
 using Unity.Mathematics;
 using UnityEngine;
@@ -56,12 +55,8 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
         private void UpdateTransformAlongPath(float currentTime)
         {
             var (splinePosition, splineRotation) = EvaluateSplineTransform(currentTime);
-
-            if (_config.InvertRotation)
-                (splinePosition, splineRotation) =
-                    ApplyInversion(splinePosition, splineRotation, _transformation.SplineStartPoint);
-
             var finalPosition = TransformPosition(splinePosition);
+
             _config.PositionTarget.position = finalPosition;
             _config.RotationTarget.rotation = splineRotation;
         }
@@ -72,20 +67,6 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
             var rotatedPoint = _transformation.Rotation * offsetPoint;
             var scaledPoint = rotatedPoint * _transformation.Scale;
             return _config.StartPoint + scaledPoint;
-        }
-
-        private (Vector3 position, Quaternion rotation) ApplyInversion(
-            Vector3 position,
-            Quaternion rotation,
-            Vector3 splineStartPoint)
-        {
-            var localPosition = position - splineStartPoint;
-            localPosition.x = -localPosition.x;
-            position = splineStartPoint + localPosition;
-
-            rotation = new Quaternion(-rotation.x, rotation.y, rotation.z, -rotation.w);
-
-            return (position, rotation);
         }
 
         private SplineTransformation CalculateTransformation()

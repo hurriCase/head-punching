@@ -51,6 +51,9 @@ namespace Source.Editor
             if (GUILayout.Button("Sync With Knots"))
                 SyncRotationDataWithKnots();
 
+            if (GUILayout.Button("Invert Animation"))
+                InvertAnimation();
+
             serializedObject.ApplyModifiedProperties();
         }
 
@@ -124,6 +127,39 @@ namespace Source.Editor
                 var rotationData = new DataPoint<quaternion>(i, knotRotation);
                 _splineAnimation.RotationData.Add(rotationData);
             }
+        }
+
+        private void InvertAnimation()
+        {
+            var spline = _splineAnimation.SplineContainer.Spline;
+            var splineStartPoint = (Vector3)_splineAnimation.SplineContainer.EvaluatePosition(0f);
+
+            using var undoScope = new UndoScope(_splineAnimation, serializedObject, "Invert Animation");
+
+            for (var i = 0; i < spline.Count; i++)
+            {
+                var knot = spline[i];
+                var position = (Vector3)knot.Position;
+
+                var localPosition = position - splineStartPoint;
+                localPosition.x = -localPosition.x;
+                var invertedPosition = splineStartPoint + localPosition;
+
+                knot.Position = invertedPosition;
+                spline[i] = knot;
+            }
+
+            for (var i = 0; i < _splineAnimation.RotationData.Count; i++)
+            {
+                var dataPoint = _splineAnimation.RotationData[i];
+                var rotation = (Quaternion)dataPoint.Value;
+
+                var invertedRotation = new Quaternion(-rotation.x, rotation.y, rotation.z, -rotation.w);
+
+                _splineAnimation.RotationData[i] = new DataPoint<quaternion>(dataPoint.Index, invertedRotation);
+            }
+
+            PreviewAtProgress(_previewProgress);
         }
 
         private void AnimatePreview()

@@ -1,4 +1,5 @@
-﻿using Cysharp.Threading.Tasks;
+﻿using AYellowpaper.SerializedCollections;
+using Cysharp.Threading.Tasks;
 using R3;
 using Source.Scripts.Gameplay.Gloves.PunchAnimation;
 using Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation;
@@ -10,19 +11,22 @@ namespace Source.Scripts.Gameplay.Gloves
 {
     internal sealed class BoxingGlove : MonoBehaviour
     {
+        [SerializeField] private SerializedDictionary<PunchType, SplineAnimation> _punches;
+
         [SerializeField] private PunchChargeHandler _punchChargeHandler;
 
         [SerializeField] private Transform _punchTransform;
         [SerializeField] private Transform _visualTransform;
-        [SerializeField] private bool _invertRotation;
 
         [Inject] private IHeadController _headController;
 
-        internal SplineAnimation PunchAnimation { get; set; }
+        private SplineAnimation _punchAnimation;
         private bool _isPunching;
 
         internal void Init(Observable<Unit> onMousePressed, Observable<Unit> onMouseReleased)
         {
+            _punchAnimation = _punches[PunchType.Uppercut];
+
             onMousePressed
                 .Where(this, static (_, self) => self._isPunching is false)
                 .Subscribe(this, static (_, self) => self._punchChargeHandler.StartCharge())
@@ -47,11 +51,10 @@ namespace Source.Scripts.Gameplay.Gloves
                 _visualTransform,
                 startPoint,
                 punchTarget,
-                _invertRotation,
                 this,
                 static (self, startPoint, endPoint) => self.ProvideImpact(startPoint, endPoint));
 
-            await PunchAnimation.Animate(animationConfig);
+            await _punchAnimation.Animate(animationConfig);
 
             _isPunching = false;
         }
