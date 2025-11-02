@@ -1,7 +1,7 @@
 ﻿using Unity.Mathematics;
 using UnityEngine.Splines;
 
-namespace Source.Scripts.Gameplay.Gloves
+namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
 {
     internal readonly struct InterpolatedQuaternion : IInterpolator<quaternion>
     {

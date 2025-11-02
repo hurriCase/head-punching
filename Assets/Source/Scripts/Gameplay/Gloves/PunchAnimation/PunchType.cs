@@ -1,4 +1,4 @@
-﻿namespace Source.Scripts.Gameplay.Gloves
+﻿namespace Source.Scripts.Gameplay.Gloves.PunchAnimation
 {
     internal enum PunchType
     {

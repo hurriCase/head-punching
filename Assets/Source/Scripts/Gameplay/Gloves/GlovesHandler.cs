@@ -1,5 +1,7 @@
 ﻿using AYellowpaper.SerializedCollections;
 using R3;
+using Source.Scripts.Gameplay.Gloves.PunchAnimation;
+using Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation;
 using Source.Scripts.Input;
 using UnityEngine;
 using VContainer;

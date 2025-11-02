@@ -1,6 +1,6 @@
 ﻿using System.Linq;
 using Cysharp.Threading.Tasks;
-using Source.Scripts.Gameplay.Gloves;
+using Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation;
 using Unity.Mathematics;
 using UnityEditor;
 using UnityEngine;

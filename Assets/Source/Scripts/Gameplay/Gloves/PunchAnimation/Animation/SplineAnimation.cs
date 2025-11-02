@@ -4,7 +4,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
 
-namespace Source.Scripts.Gameplay.Gloves
+namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
 {
     internal sealed class SplineAnimation : MonoBehaviour
     {

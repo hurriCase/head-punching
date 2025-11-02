@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace Source.Scripts.Gameplay.Gloves
+namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
 {
     [Serializable]
     internal struct SplineAnimationConfig

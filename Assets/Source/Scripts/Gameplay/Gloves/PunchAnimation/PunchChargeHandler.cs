@@ -1,7 +1,7 @@
 ﻿using PrimeTween;
 using UnityEngine;
 
-namespace Source.Scripts.Gameplay.Gloves
+namespace Source.Scripts.Gameplay.Gloves.PunchAnimation
 {
     internal sealed class PunchChargeHandler : MonoBehaviour
     {
