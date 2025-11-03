@@ -6,10 +6,11 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation
     internal sealed class PunchChargeHandler : MonoBehaviour
     {
         [SerializeField] private Transform _visualTransform;
+        [SerializeField] private ShakeSettings _shakeSettings;
         [SerializeField] private float _endScale;
         [SerializeField] private AnimationCurve _chargeCurve;
 
-        private Tween _scaleTween;
+        private Sequence _scaleTween;
         private float _chargeStartTime;
 
         internal void StartCharge()
@@ -18,7 +19,11 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation
 
             _chargeStartTime = Time.time;
 
-            _scaleTween = Tween.Scale(_visualTransform, _endScale, _chargeCurve.keys[^1].time);
+            var duration = _chargeCurve.keys[^1].time;
+            _shakeSettings.duration = duration;
+            _scaleTween = Sequence.Create()
+                .Chain(Tween.Scale(_visualTransform, _endScale, duration))
+                .Group(Tween.ShakeLocalPosition(_visualTransform, _shakeSettings));
         }
 
         internal float ReleaseCharge()

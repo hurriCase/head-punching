@@ -135,6 +135,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _visualTransform: {fileID: 3246762746875897431}
+  _shakeSettings:
+    strength: {x: 0.01, y: 0.01, z: 0.01}
+    duration: 1
+    frequency: 10
+    enableFalloff: 0
+    falloffEase: 0
+    strengthOverTime:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    asymmetry: 0
+    easeBetweenShakes: 0
+    cycles: 1
+    startDelay: 0
+    endDelay: 0
+    useUnscaledTime: 0
+    _useFixedUpdate: 0
+    _updateType: 0
   _endScale: 1.3
   _chargeCurve:
     serializedVersion: 2
@@ -142,20 +162,29 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 1
-      inSlope: 0.5699296
-      outSlope: 0.5699296
+      inSlope: 0.17133658
+      outSlope: 0.17133658
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
-      outWeight: 0.27966356
+      outWeight: 0.056093983
     - serializedVersion: 3
-      time: 2
-      value: 4
-      inSlope: 5.410867
-      outSlope: 5.410867
+      time: 1.3528558
+      value: 1.270797
+      inSlope: 0.37348077
+      outSlope: 0.37348077
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.043558836
+      inWeight: 0.07073865
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 2
+      value: 2.5
+      inSlope: 2.931802
+      outSlope: 2.931802
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.042623818
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
