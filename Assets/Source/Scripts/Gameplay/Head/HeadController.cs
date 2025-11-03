@@ -1,6 +1,8 @@
 ﻿using System;
+using Source.Scripts.Gameplay.CameraEffects;
 using Source.Scripts.Gameplay.Gloves.PunchAnimation;
 using UnityEngine;
+using VContainer;
 
 namespace Source.Scripts.Gameplay.Head
 {
@@ -13,6 +15,8 @@ namespace Source.Scripts.Gameplay.Head
 
         [SerializeField] private float _basePunchForce;
 
+        [Inject] private ICameraShake _cameraShake;
+
         public void Init()
         {
             _meshDeformation.Init();
@@ -24,6 +28,7 @@ namespace Source.Scripts.Gameplay.Head
             _rigidbody.AddForce(force, ForceMode.Impulse);
 
             _meshDeformation.ApplyDeformationAtPoint(impactPoint, force, forceMultiplier);
+            _cameraShake.Shake(forceMultiplier);
         }
 
         public Vector3 GetPunchTarget(Vector3 position, HeadSide headSide, Vector3 punchTargetOffset)
