@@ -56,7 +56,8 @@ namespace Source.Scripts.Gameplay.Gloves
                 startPoint,
                 punchTarget,
                 this,
-                static (self, startPoint, endPoint) => self.ProvideImpact(startPoint, endPoint));
+                headSide,
+                static (self, startPoint, headSide) => self.ProvideImpact(startPoint, headSide));
 
             await punchAnimation.Animate(animationConfig);
 
@@ -70,7 +71,9 @@ namespace Source.Scripts.Gameplay.Gloves
             var mouseRay = _camera.ScreenPointToRay(mousePosition);
             var maxDistance = (meshCollider.bounds.center - _punchTransform.position).magnitude;
 
-            return meshCollider.Raycast(mouseRay, out _, float.PositiveInfinity) ? HeadSide.Center : GetRelativeSide(mouseRay);
+            return meshCollider.Raycast(mouseRay, out _, float.PositiveInfinity)
+                ? HeadSide.Center
+                : GetRelativeSide(mouseRay);
         }
 
         private HeadSide GetRelativeSide(Ray mouseRay)
@@ -91,9 +94,17 @@ namespace Source.Scripts.Gameplay.Gloves
             return direction.y > 0 ? HeadSide.Top : HeadSide.Bottom;
         }
 
-        private void ProvideImpact(Vector3 startPoint, Vector3 punchTarget)
+        private void ProvideImpact(Vector3 punchTarget, HeadSide headSide)
         {
-            var punchDirection = (punchTarget - startPoint).normalized;
+            var punchDirection = headSide switch
+            {
+                HeadSide.Center => Vector3.forward,
+                HeadSide.Left => Vector3.right,
+                HeadSide.Right => Vector3.left,
+                HeadSide.Top => Vector3.down,
+                HeadSide.Bottom => Vector3.up,
+                _ => Vector3.forward
+            };
             var forceMultiplier = _punchChargeHandler.ReleaseCharge();
 
             _headController.ApplyPunchImpact(punchTarget, punchDirection, forceMultiplier);

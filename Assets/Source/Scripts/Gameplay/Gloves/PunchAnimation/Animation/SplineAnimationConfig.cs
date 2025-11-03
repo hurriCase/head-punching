@@ -11,7 +11,8 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
         internal Vector3 StartPoint { get; }
         internal Vector3 EndPoint { get; }
         internal BoxingGlove BoxingGlove { get; }
-        internal Action<BoxingGlove, Vector3, Vector3> AnimationFinished { get; }
+        internal HeadSide HeadSide { get; }
+        internal Action<BoxingGlove, Vector3, HeadSide> AnimationFinished { get; }
 
         internal SplineAnimationConfig(
             Transform positionTarget,
@@ -19,13 +20,15 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
             Vector3 startPoint,
             Vector3 endPoint,
             BoxingGlove boxingGlove = null,
-            Action<BoxingGlove, Vector3, Vector3> animationFinished = null)
+            HeadSide headSide = default,
+            Action<BoxingGlove, Vector3, HeadSide> animationFinished = null)
         {
             PositionTarget = positionTarget;
             RotationTarget = rotationTarget;
             StartPoint = startPoint;
             EndPoint = endPoint;
             BoxingGlove = boxingGlove;
+            HeadSide = headSide;
             AnimationFinished = animationFinished;
         }
     }

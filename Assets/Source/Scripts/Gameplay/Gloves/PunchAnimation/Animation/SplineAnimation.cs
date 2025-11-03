@@ -34,7 +34,7 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
                 PunchSettings,
                 onValueChange: static (state, currentTime) => state.UpdateTransformAlongPath(currentTime));
 
-            config.AnimationFinished?.Invoke(config.BoxingGlove, config.StartPoint, config.EndPoint);
+            config.AnimationFinished?.Invoke(config.BoxingGlove, config.StartPoint, config.HeadSide);
 
             await Sequence.Create()
                 .Chain(Tween.LocalPosition(config.PositionTarget, initialLocalPosition, ReturnSettings))
