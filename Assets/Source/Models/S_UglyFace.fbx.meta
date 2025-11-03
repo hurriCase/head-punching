@@ -3,7 +3,67 @@ guid: 6ab65fd262d3b1d43a401a9016ef9f84
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: 07 - Default
+    second: {fileID: 2100000, guid: 9ec262a787c1b2b4786d4d41df50cc32, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Blood
+    second: {fileID: 2100000, guid: 48f253c20cb664644a32c4e46cf77147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Body
+    second: {fileID: 2100000, guid: 17ae1b36ad5d5d04892b1ff4b26a4301, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_EyeContour
+    second: {fileID: 2100000, guid: 9ec262a787c1b2b4786d4d41df50cc32, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Eyebrows
+    second: {fileID: 2100000, guid: 3f70c848862d77a4387d4b12a1b7940a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Pupils
+    second: {fileID: 2100000, guid: cfdc7eee497de5648b29ee53e23eadfa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: M_Teeth
+    second: {fileID: 2100000, guid: 3c640c1e99dc10d4390832d9728b475d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #41
+    second: {fileID: 2100000, guid: cfdc7eee497de5648b29ee53e23eadfa, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #54
+    second: {fileID: 2100000, guid: 48f253c20cb664644a32c4e46cf77147, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Material #55
+    second: {fileID: 2100000, guid: 3c640c1e99dc10d4390832d9728b475d, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: eyelashes
+    second: {fileID: 2100000, guid: 3f70c848862d77a4387d4b12a1b7940a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: face SSS
+    second: {fileID: 2100000, guid: 17ae1b36ad5d5d04892b1ff4b26a4301, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -36,7 +96,7 @@ ModelImporter:
   meshes:
     lODScreenPercentages: []
     globalScale: 1
-    meshCompression: 2
+    meshCompression: 0
     addColliders: 0
     useSRGBMaterialColor: 1
     sortHierarchyByName: 1

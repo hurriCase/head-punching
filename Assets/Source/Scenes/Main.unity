@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
+  m_SkyboxMaterial: {fileID: 2100000, guid: 8282eefc57cc08149b78b96d5de60451, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -123,18 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!114 &54689739 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6006971756390075684, guid: a9d0d181d66945f419ca06f631b4abb0,
-    type: 3}
-  m_PrefabInstance: {fileID: 1160412874208817943}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83d0abbddd6b40b0ab3a5b0ed60c82a5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -221,13 +209,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0.098248325, y: -0, z: -0, w: 0.99516195}
   m_LocalPosition: {x: 0, y: 0, z: -0.605}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 11.277, y: 0, z: 0}
 --- !u!114 &330585547
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,6 +427,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1024165113 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8943954635537200254, guid: a9d0d181d66945f419ca06f631b4abb0,
+    type: 3}
+  m_PrefabInstance: {fileID: 1160412874208817943}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83d0abbddd6b40b0ab3a5b0ed60c82a5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1970557861 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5438604926438354630, guid: 5d522d8050a570848be5ed3b208418c4,
@@ -630,7 +630,7 @@ PrefabInstance:
         type: 3}
       propertyPath: _headController
       value: 
-      objectReference: {fileID: 54689739}
+      objectReference: {fileID: 1024165113}
     - target: {fileID: 2274549147562896467, guid: f5a0b98ae80da7c44aac0215432a0c3b,
         type: 3}
       propertyPath: autoInjectGameObjects.Array.data[0]

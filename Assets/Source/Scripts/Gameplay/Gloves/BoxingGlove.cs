@@ -16,9 +16,8 @@ namespace Source.Scripts.Gameplay.Gloves
         [SerializeField] private Transform _punchTransform;
         [SerializeField] private Transform _visualTransform;
 
-        [Header("Punch Detection")]
-        [SerializeField] private float _uppercutAngleThreshold = 45f;
-        [SerializeField] private float _hookAngleThreshold = 60f;
+        [SerializeField] private float _uppercutAngleThreshold;
+        [SerializeField] private float _hookAngleThreshold;
 
         [Inject] private IHeadController _headController;
 

@@ -48,17 +48,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _leftGlove: {fileID: 7033908584551634321}
   _rightGlove: {fileID: 1506402010085162329}
-  _punches:
-    _serializedList:
-    - Key: 1
-      Value: {fileID: 295938114772473243, guid: 7ec06c0e9bf202d4f8a3d724f9e4cf81,
-        type: 3}
-    - Key: 2
-      Value: {fileID: 295938114772473243, guid: 7ec06c0e9bf202d4f8a3d724f9e4cf81,
-        type: 3}
-    - Key: 3
-      Value: {fileID: 295938114772473243, guid: 7ec06c0e9bf202d4f8a3d724f9e4cf81,
-        type: 3}
 --- !u!1001 &3311172369402299991
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -75,7 +64,7 @@ PrefabInstance:
     - target: {fileID: 1232360203053814776, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1232360203053814776, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
@@ -161,7 +150,7 @@ PrefabInstance:
     - target: {fileID: 1232360203053814776, guid: 3161f006af10c5042adbcb2cbdf1873a,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.1
       objectReference: {fileID: 0}
     - target: {fileID: 1232360203053814776, guid: 3161f006af10c5042adbcb2cbdf1873a,
         type: 3}
