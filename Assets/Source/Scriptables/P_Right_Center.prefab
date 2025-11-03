@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1570233185233220249}
   - component: {fileID: 295938114772473243}
   m_Layer: 0
-  m_Name: P_Cross
+  m_Name: P_Right_Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -360,6 +360,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: P_BoxingGlove_Left
       objectReference: {fileID: 0}
+    - target: {fileID: 6584244217566865228, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -531,6 +536,21 @@ PrefabInstance:
       propertyPath: _gloveMovementHandler
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5507571585094341574, guid: 3161f006af10c5042adbcb2cbdf1873a,
+        type: 3}
+      propertyPath: _punches._serializedList.Array.data[0].Value
+      value: 
+      objectReference: {fileID: 295938114772473243}
+    - target: {fileID: 5507571585094341574, guid: 3161f006af10c5042adbcb2cbdf1873a,
+        type: 3}
+      propertyPath: _punches._serializedList.Array.data[1].Value
+      value: 
+      objectReference: {fileID: 295938114772473243}
+    - target: {fileID: 5507571585094341574, guid: 3161f006af10c5042adbcb2cbdf1873a,
+        type: 3}
+      propertyPath: _punches._serializedList.Array.data[2].Value
+      value: 
+      objectReference: {fileID: 295938114772473243}
     - target: {fileID: 6584244217566865228, guid: 3161f006af10c5042adbcb2cbdf1873a,
         type: 3}
       propertyPath: m_Name

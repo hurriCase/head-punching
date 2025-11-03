@@ -12,6 +12,7 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
         [field: SerializeField] internal SplineData<quaternion> RotationData { get; private set; } = new();
         [field: SerializeField] internal TweenSettings PunchSettings { get; private set; }
         [field: SerializeField] internal TweenSettings ReturnSettings { get; private set; }
+        [field: SerializeField] internal Vector3 PunchTargetOffset { get; private set; }
         [field: SerializeField] internal Transform PreviewPositionTarget { get; private set; }
         [field: SerializeField] internal Transform PreviewRotationTarget { get; private set; }
 

@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6865827777111978671}
   - component: {fileID: 2747925713955497700}
-  - component: {fileID: 2935359501086979439}
   - component: {fileID: 472142569367604981}
   m_Layer: 6
   m_Name: P_UglyFace
@@ -51,28 +50,6 @@ MonoBehaviour:
   _deformationRadius: 0.2
   _baseDeformationStrength: 0.08
   _recoveryDuration: 0.3
---- !u!64 &2935359501086979439
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3889993234354492785}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4578412931620183545, guid: 6ab65fd262d3b1d43a401a9016ef9f84, type: 3}
 --- !u!114 &472142569367604981
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -85,10 +62,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d0abbddd6b40b0ab3a5b0ed60c82a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _meshCollider: {fileID: 2935359501086979439}
+  <MeshCollider>k__BackingField: {fileID: 9100353851588604233}
   _rigidbody: {fileID: 3584352268957294047}
   _meshDeformation: {fileID: 2747925713955497700}
-  _basePunchForce: 50
+  _basePunchForce: 10
 --- !u!1 &8945172655164701817
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +93,7 @@ Transform:
   m_GameObject: {fileID: 8945172655164701817}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.138, z: -0.032}
+  m_LocalPosition: {x: 0, y: 0.155, z: -0.032}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -162,7 +139,7 @@ ConfigurableJoint:
   m_Anchor: {x: 0, y: 0, z: 0}
   m_Axis: {x: 1, y: 0, z: 0}
   m_AutoConfigureConnectedAnchor: 1
-  m_ConnectedAnchor: {x: 0, y: 0, z: 0}
+  m_ConnectedAnchor: {x: 0, y: -0.138, z: -0.032}
   serializedVersion: 3
   m_SecondaryAxis: {x: 0, y: 1, z: 0}
   m_XMotion: 0
@@ -268,7 +245,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 6ab65fd262d3b1d43a401a9016ef9f84,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.138
+      value: -0.155
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6ab65fd262d3b1d43a401a9016ef9f84,
         type: 3}
@@ -315,6 +292,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: S_UglyFace
       objectReference: {fileID: 0}
+    - target: {fileID: 3451118302482216456, guid: 6ab65fd262d3b1d43a401a9016ef9f84,
+        type: 3}
+      propertyPath: m_Convex
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -329,6 +311,12 @@ Transform:
 --- !u!33 &7028787214325952271 stripped
 MeshFilter:
   m_CorrespondingSourceObject: {fileID: -5754084199372789682, guid: 6ab65fd262d3b1d43a401a9016ef9f84,
+    type: 3}
+  m_PrefabInstance: {fileID: 5885683901196060481}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &9100353851588604233 stripped
+MeshCollider:
+  m_CorrespondingSourceObject: {fileID: 3451118302482216456, guid: 6ab65fd262d3b1d43a401a9016ef9f84,
     type: 3}
   m_PrefabInstance: {fileID: 5885683901196060481}
   m_PrefabAsset: {fileID: 0}

@@ -4,6 +4,7 @@ using R3;
 using Source.Scripts.Gameplay.Gloves.PunchAnimation;
 using Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation;
 using Source.Scripts.Gameplay.Head;
+using Source.Scripts.Input;
 using UnityEngine;
 using VContainer;
 
@@ -11,7 +12,7 @@ namespace Source.Scripts.Gameplay.Gloves
 {
     internal sealed class BoxingGlove : MonoBehaviour
     {
-        [SerializeField] private SerializedDictionary<PunchType, SplineAnimation> _punches;
+        [SerializeField] private SerializedDictionary<HeadSide, SplineAnimation> _punches;
         [SerializeField] private PunchChargeHandler _punchChargeHandler;
         [SerializeField] private Transform _punchTransform;
         [SerializeField] private Transform _visualTransform;
@@ -20,6 +21,8 @@ namespace Source.Scripts.Gameplay.Gloves
         [SerializeField] private float _hookAngleThreshold;
 
         [Inject] private IHeadController _headController;
+        [Inject] private IInputService _inputService;
+        [Inject] private Camera _camera;
 
         private bool _isPunching;
 
@@ -42,10 +45,10 @@ namespace Source.Scripts.Gameplay.Gloves
             _isPunching = true;
 
             var startPoint = _punchTransform.position;
-            var punchTarget = _headController.GetPunchTarget(startPoint);
-
-            var punchType = DeterminePunchType(startPoint, punchTarget);
-            var punchAnimation = _punches[punchType];
+            var headSide = DetermineHeadSide();
+            var punchAnimation = _punches[headSide];
+            var punchTargetOffset = punchAnimation.PunchTargetOffset;
+            var punchTarget = _headController.GetPunchTarget(startPoint, headSide, punchTargetOffset);
 
             var animationConfig = new SplineAnimationConfig(
                 _punchTransform,
@@ -60,19 +63,32 @@ namespace Source.Scripts.Gameplay.Gloves
             _isPunching = false;
         }
 
-        private PunchType DeterminePunchType(Vector3 startPoint, Vector3 targetPoint)
+        private HeadSide DetermineHeadSide()
         {
-            var direction = (targetPoint - startPoint).normalized;
-            var verticalAngle = Vector3.Angle(Vector3.up, direction);
+            var meshCollider = _headController.MeshCollider;
+            var mousePosition = _inputService.CurrentMousePosition.CurrentValue;
+            var mouseRay = _camera.ScreenPointToRay(mousePosition);
+            var maxDistance = (meshCollider.bounds.center - _punchTransform.position).magnitude;
 
-            if (verticalAngle < _uppercutAngleThreshold)
-                return PunchType.Uppercut;
+            return meshCollider.Raycast(mouseRay, out _, float.PositiveInfinity) ? HeadSide.Center : GetRelativeSide(mouseRay);
+        }
 
-            var horizontalDirection = new Vector3(direction.x, 0f, direction.z).normalized;
-            var forwardDirection = Vector3.forward;
-            var horizontalAngle = Vector3.Angle(forwardDirection, horizontalDirection);
+        private HeadSide GetRelativeSide(Ray mouseRay)
+        {
+            var meshCollider = _headController.MeshCollider;
+            var plane = new Plane(Vector3.forward, meshCollider.bounds.center);
 
-            return horizontalAngle > _hookAngleThreshold ? PunchType.Hook : PunchType.Jab;
+            var clickPosition = plane.Raycast(mouseRay, out var distance)
+                ? mouseRay.GetPoint(distance)
+                : meshCollider.bounds.center;
+
+            var colliderCenter = meshCollider.bounds.center;
+            var direction = clickPosition - colliderCenter;
+
+            if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
+                return direction.x > 0 ? HeadSide.Right : HeadSide.Left;
+
+            return direction.y > 0 ? HeadSide.Top : HeadSide.Bottom;
         }
 
         private void ProvideImpact(Vector3 startPoint, Vector3 punchTarget)

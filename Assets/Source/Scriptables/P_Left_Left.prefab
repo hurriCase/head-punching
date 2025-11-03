@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1570233185233220249}
   - component: {fileID: 295938114772473243}
   m_Layer: 0
-  m_Name: P_RearHook
+  m_Name: P_Left_Left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,77 +64,77 @@ MonoBehaviour:
   - m_EditModeType: 1
     m_Knots:
     - Position:
-        x: 11.108356
+        x: 8.352198
         y: 0.85270005
         z: 0.00047016144
       TangentIn:
         x: -0
         y: -0
-        z: -0.04614159
+        z: -0.015925858
       TangentOut:
         x: 0
         y: 0
-        z: 0.04614159
+        z: 0.015925858
       Rotation:
         value:
-          x: 0.05713139
-          y: 0.9235965
-          z: 0.070556626
-          w: 0.37246102
+          x: 0.0344369
+          y: -0.6261547
+          z: -0.24277027
+          w: 0.7401398
     - Position:
-        x: 11.429534
-        y: 0.89320004
-        z: -0.3283298
+        x: 8.2019205
+        y: 0.893
+        z: 0.03447008
       TangentIn:
         x: -0
         y: -0
-        z: -0.072267555
+        z: -0.052741893
       TangentOut:
         x: 0
         y: 0
-        z: 0.09082329
+        z: 0.08103605
       Rotation:
         value:
-          x: 0.5769894
-          y: 0.0019276512
-          z: 0.81527257
-          w: -0.049092703
+          x: -0.36720604
+          y: 0.00786369
+          z: 0.92087215
+          w: 0.13073757
     - Position:
-        x: 11.500633
+        x: 8.140921
         y: 0.86600006
-        z: 0.39647007
+        z: 0.4044702
       TangentIn:
         x: -0
         y: -0
-        z: -0.16511491
+        z: -0.09703231
       TangentOut:
         x: 0
         y: 0
-        z: 0.1123152
+        z: 0.06993659
       Rotation:
         value:
-          x: 0.062123727
-          y: -0.22711653
-          z: -0.2651459
-          w: 0.93501675
+          x: -0.04321057
+          y: 0.10172845
+          z: -0.3773005
+          w: 0.9194719
     - Position:
-        x: 11.208633
+        x: 8.251921
         y: 0.88100004
         z: 0.56447005
       TangentIn:
         x: -0
         y: -0
-        z: -0.033721343
+        z: -0.019530993
       TangentOut:
         x: 0
         y: 0
-        z: 0.033721343
+        z: 0.019530993
       Rotation:
         value:
-          x: 0.100229435
-          y: -0.49076846
-          z: -0.2164633
-          w: 0.83800006
+          x: 0.059584245
+          y: 0.29469422
+          z: 0.31249624
+          w: 0.9010833
     m_MetaData:
     - Mode: 0
       Tension: 0.5
@@ -180,33 +180,33 @@ MonoBehaviour:
     - m_Index: 0
       m_Value:
         value:
-          x: -0.24240384
+          x: 0.24240384
           y: -0.5198367
           z: -0.742404
-          w: 0.34618863
+          w: -0.34618863
     - m_Index: 1
       m_Value:
         value:
-          x: 0.095833
+          x: -0.095833
           y: 0.35109606
           z: 0.63247454
-          w: -0.68375707
+          w: 0.68375707
     - m_Index: 2
       m_Value:
         value:
-          x: -0.14864466
+          x: 0.14864466
           y: -0.3303986
           z: -0.05447183
-          w: 0.93047005
+          w: -0.93047005
     - m_Index: 3
       m_Value:
         value:
-          x: -0.13529192
+          x: 0.13529192
           y: -0.51493174
           z: -0.019012135
-          w: 0.8462742
+          w: -0.8462742
   <PunchSettings>k__BackingField:
-    duration: 0.3
+    duration: 0.4
     ease: -1
     customEase:
       serializedVersion: 2
@@ -249,7 +249,7 @@ MonoBehaviour:
     _useFixedUpdate: 0
     _updateType: 0
   <ReturnSettings>k__BackingField:
-    duration: 0.4
+    duration: 0.5
     ease: 0
     customEase:
       serializedVersion: 2
@@ -264,6 +264,7 @@ MonoBehaviour:
     useUnscaledTime: 0
     _useFixedUpdate: 0
     _updateType: 0
+  <PunchTargetOffset>k__BackingField: {x: 0, y: 0, z: -0.5}
   <PreviewPositionTarget>k__BackingField: {fileID: 1386541934247296983}
   <PreviewRotationTarget>k__BackingField: {fileID: 172729095750485054}
 --- !u!1001 &507697409085489227
@@ -292,22 +293,22 @@ PrefabInstance:
     - target: {fileID: 391281175810294901, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.34618863
+      value: -0.8462742
       objectReference: {fileID: 0}
     - target: {fileID: 391281175810294901, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0.24240384
+      value: 0.13529192
       objectReference: {fileID: 0}
     - target: {fileID: 391281175810294901, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.5198367
+      value: -0.51493174
       objectReference: {fileID: 0}
     - target: {fileID: 391281175810294901, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.742404
+      value: -0.019012135
       objectReference: {fileID: 0}
     - target: {fileID: 391281175810294901, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
@@ -377,21 +378,31 @@ PrefabInstance:
     - target: {fileID: 1456431319408148380, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 11.108356
+      value: 8.251921
       objectReference: {fileID: 0}
     - target: {fileID: 1456431319408148380, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.85270005
+      value: 0.88100004
       objectReference: {fileID: 0}
     - target: {fileID: 1456431319408148380, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.00047016144
+      value: 0.56447005
       objectReference: {fileID: 0}
     - target: {fileID: 5507571585094341574, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
       propertyPath: _punches._serializedList.Array.data[0].Value
+      value: 
+      objectReference: {fileID: 295938114772473243}
+    - target: {fileID: 5507571585094341574, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
+        type: 3}
+      propertyPath: _punches._serializedList.Array.data[1].Value
+      value: 
+      objectReference: {fileID: 295938114772473243}
+    - target: {fileID: 5507571585094341574, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
+        type: 3}
+      propertyPath: _punches._serializedList.Array.data[3].Value
       value: 
       objectReference: {fileID: 295938114772473243}
     - target: {fileID: 6584244217566865228, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,

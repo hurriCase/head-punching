@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1570233185233220249}
   - component: {fileID: 295938114772473243}
   m_Layer: 0
-  m_Name: P_LeadUppercut
+  m_Name: P_Right_Right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,81 +64,81 @@ MonoBehaviour:
   - m_EditModeType: 1
     m_Knots:
     - Position:
-        x: 2.8398795
+        x: 11.108356
         y: 0.85270005
         z: 0.00047016144
       TangentIn:
         x: -0
         y: -0
-        z: -0.020750668
+        z: -0.025505401
       TangentOut:
         x: 0
         y: 0
-        z: 0.020750668
+        z: 0.025505401
       Rotation:
         value:
-          x: 0.70273775
-          y: -0.28094196
-          z: -0.22070073
-          w: 0.61524177
+          x: 0.03794694
+          y: 0.7225542
+          z: 0.14478336
+          w: 0.6749172
     - Position:
-        x: 2.7037792
-        y: 0.69900006
-        z: -0.029729843
-      TangentIn:
-        x: 0
-        y: 0
-        z: 0
-      TangentOut:
-        x: 0
-        y: 0
-        z: 0
-      Rotation:
-        value:
-          x: 0.3170676
-          y: 0.18855183
-          z: 0.06798524
-          w: 0.9269813
-    - Position:
-        x: 2.7546792
-        y: 0.735
-        z: 0.124470234
+        x: 11.3599205
+        y: 0.893
+        z: -0.0115299225
       TangentIn:
         x: -0
         y: -0
-        z: -0.07389557
+        z: -0.06777433
       TangentOut:
         x: 0
         y: 0
-        z: 0.1476598
+        z: 0.07727731
       Rotation:
         value:
-          x: -0.118733644
-          y: 0.1438922
-          z: -0.051502943
-          w: 0.98109365
+          x: 0.43383208
+          y: 0.0016469972
+          z: 0.8992769
+          w: -0.055571023
     - Position:
-        x: 2.9426794
+        x: 11.419921
+        y: 0.86600006
+        z: 0.31347013
+      TangentIn:
+        x: -0
+        y: -0
+        z: -0.09951247
+      TangentOut:
+        x: 0
+        y: 0
+        z: 0.09903717
+      Rotation:
+        value:
+          x: 0.044509638
+          y: -0.12167363
+          z: -0.26784393
+          w: 0.95471156
+    - Position:
+        x: 11.208633
         y: 0.88100004
-        z: 0.7444701
+        z: 0.56447005
       TangentIn:
         x: -0
         y: -0
-        z: -0.066412345
+        z: -0.03284332
       TangentOut:
         x: 0
         y: 0
-        z: 0.066412345
+        z: 0.03284332
       Rotation:
         value:
-          x: -0.11436541
-          y: 0.14191529
-          z: -0.01770219
-          w: 0.9830907
+          x: 0.063100025
+          y: -0.33749256
+          z: -0.23755457
+          w: 0.90867215
     m_MetaData:
     - Mode: 0
       Tension: 0.5
-    - Mode: 1
+    - Mode: 0
       Tension: 0.5
     - Mode: 0
       Tension: 0.5
@@ -180,33 +180,33 @@ MonoBehaviour:
     - m_Index: 0
       m_Value:
         value:
-          x: 0.24240384
+          x: -0.24240384
           y: -0.5198367
           z: -0.742404
-          w: -0.34618863
+          w: 0.34618863
     - m_Index: 1
       m_Value:
         value:
-          x: -0.095833
+          x: 0.095833
           y: 0.35109606
           z: 0.63247454
-          w: 0.68375707
+          w: -0.68375707
     - m_Index: 2
       m_Value:
         value:
-          x: 0.06796405
-          y: -0.14252129
-          z: -0.40003586
-          w: -0.90279573
+          x: -0.14864466
+          y: -0.3303986
+          z: -0.05447183
+          w: 0.93047005
     - m_Index: 3
       m_Value:
         value:
-          x: 0.11850037
-          y: -0.09274614
-          z: 0.05148092
-          w: -0.9872719
+          x: -0.13529192
+          y: -0.51493174
+          z: -0.019012135
+          w: 0.8462742
   <PunchSettings>k__BackingField:
-    duration: 0.3
+    duration: 0.4
     ease: -1
     customEase:
       serializedVersion: 2
@@ -214,26 +214,26 @@ MonoBehaviour:
       - serializedVersion: 3
         time: 0
         value: 0
-        inSlope: 0.3336244
-        outSlope: 0.3336244
+        inSlope: 0.5007436
+        outSlope: 0.5007436
         tangentMode: 34
         weightedMode: 0
         inWeight: 0
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.6983889
-        value: 0.23299956
-        inSlope: 0.025131466
-        outSlope: 0.025131466
+        time: 0.7251682
+        value: 0.3631234
+        inSlope: 0.63567865
+        outSlope: 0.63567865
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.33333334
-        outWeight: 0.14000252
+        inWeight: 0.06127646
+        outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
         value: 1
-        inSlope: 2.5430112
-        outSlope: 2.5430112
+        inSlope: 2.3173325
+        outSlope: 2.3173325
         tangentMode: 34
         weightedMode: 0
         inWeight: 0.33333334
@@ -249,7 +249,7 @@ MonoBehaviour:
     _useFixedUpdate: 0
     _updateType: 0
   <ReturnSettings>k__BackingField:
-    duration: 0.4
+    duration: 0.5
     ease: 0
     customEase:
       serializedVersion: 2
@@ -264,6 +264,7 @@ MonoBehaviour:
     useUnscaledTime: 0
     _useFixedUpdate: 0
     _updateType: 0
+  <PunchTargetOffset>k__BackingField: {x: 0, y: 0, z: -0.5}
   <PreviewPositionTarget>k__BackingField: {fileID: 1386541934247296983}
   <PreviewRotationTarget>k__BackingField: {fileID: 172729095750485054}
 --- !u!1001 &507697409085489227
@@ -276,23 +277,53 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 391281175810294901, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.014004707
+      objectReference: {fileID: 0}
+    - target: {fileID: 391281175810294901, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.007865667
+      objectReference: {fileID: 0}
+    - target: {fileID: 391281175810294901, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.0121052265
+      objectReference: {fileID: 0}
+    - target: {fileID: 391281175810294901, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
+        type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.9872718
+      value: 0.84627414
       objectReference: {fileID: 0}
     - target: {fileID: 391281175810294901, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.11850035
+      value: -0.13529192
       objectReference: {fileID: 0}
     - target: {fileID: 391281175810294901, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.09274613
+      value: -0.5149316
       objectReference: {fileID: 0}
     - target: {fileID: 391281175810294901, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.05148091
+      value: -0.019012144
+      objectReference: {fileID: 0}
+    - target: {fileID: 391281175810294901, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -14.393
+      objectReference: {fileID: 0}
+    - target: {fileID: 391281175810294901, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 63.441
+      objectReference: {fileID: 0}
+    - target: {fileID: 391281175810294901, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -6.351
       objectReference: {fileID: 0}
     - target: {fileID: 1232360203053814776, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
@@ -347,7 +378,7 @@ PrefabInstance:
     - target: {fileID: 1456431319408148380, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 2.9426794
+      value: 11.208633
       objectReference: {fileID: 0}
     - target: {fileID: 1456431319408148380, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
@@ -357,7 +388,7 @@ PrefabInstance:
     - target: {fileID: 1456431319408148380, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.7444701
+      value: 0.56447005
       objectReference: {fileID: 0}
     - target: {fileID: 5507571585094341574, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
         type: 3}
@@ -368,6 +399,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: P_BoxingGlove_Left
+      objectReference: {fileID: 0}
+    - target: {fileID: 6584244217566865228, guid: 91cae2f2c0f13a045a1606c6fcbec5a9,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -540,6 +576,16 @@ PrefabInstance:
       propertyPath: _gloveMovementHandler
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5507571585094341574, guid: 3161f006af10c5042adbcb2cbdf1873a,
+        type: 3}
+      propertyPath: _punches._serializedList.Array.data[1].Value
+      value: 
+      objectReference: {fileID: 295938114772473243}
+    - target: {fileID: 5507571585094341574, guid: 3161f006af10c5042adbcb2cbdf1873a,
+        type: 3}
+      propertyPath: _punches._serializedList.Array.data[3].Value
+      value: 
+      objectReference: {fileID: 295938114772473243}
     - target: {fileID: 6584244217566865228, guid: 3161f006af10c5042adbcb2cbdf1873a,
         type: 3}
       propertyPath: m_Name

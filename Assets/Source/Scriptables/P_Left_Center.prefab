@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1570233185233220249}
   - component: {fileID: 295938114772473243}
   m_Layer: 0
-  m_Name: P_Jab
+  m_Name: P_Left_Center
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -257,6 +257,8 @@ MonoBehaviour:
     _updateType: 0
   <PreviewPositionTarget>k__BackingField: {fileID: 1386541934247296983}
   <PreviewRotationTarget>k__BackingField: {fileID: 172729095750485054}
+  <TargetSide>k__BackingField: 1
+  <SideOffset>k__BackingField: 0.3
 --- !u!1001 &507697409085489227
 PrefabInstance:
   m_ObjectHideFlags: 0
