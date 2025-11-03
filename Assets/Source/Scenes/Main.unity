@@ -274,7 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _shakeSettings:
-    strength: {x: 0.01, y: 0.01, z: 0.01}
+    strength: {x: 0.005, y: 0.005, z: 0.005}
     duration: 0.3
     frequency: 10
     enableFalloff: 0
