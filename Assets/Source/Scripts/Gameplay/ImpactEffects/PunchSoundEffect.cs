@@ -2,14 +2,14 @@
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
-namespace Source.Scripts.Gameplay.CameraEffects
+namespace Source.Scripts.Gameplay.ImpactEffects
 {
-    internal sealed class PunchSoundEffect : MonoBehaviour, IPunchSoundEffect
+    internal sealed class PunchSoundEffect : ImpactEffectBase
     {
         [SerializeField] private AudioSource _audioSource;
         [SerializeField] private SerializedDictionary<float, List<AudioClip>> _punchSoundEffect;
 
-        public void Play(float intensity)
+        internal override void Play(float intensity)
         {
             foreach (var (clipIntensity, audioClips) in _punchSoundEffect)
             {

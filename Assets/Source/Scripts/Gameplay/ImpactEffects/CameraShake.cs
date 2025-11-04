@@ -1,15 +1,15 @@
 ﻿using PrimeTween;
 using UnityEngine;
 
-namespace Source.Scripts.Gameplay.CameraEffects
+namespace Source.Scripts.Gameplay.ImpactEffects
 {
-    internal sealed class CameraShake : MonoBehaviour, ICameraShake
+    internal sealed class CameraShake : ImpactEffectBase
     {
         [SerializeField] private ShakeSettings _shakeSettings;
 
         private Tween _shakeTween;
 
-        public void Shake(float intensity)
+        internal override void Play(float intensity)
         {
             _shakeTween.Stop();
 
