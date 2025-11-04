@@ -17,9 +17,6 @@ namespace Source.Scripts.Gameplay.Gloves
         [SerializeField] private Transform _punchTransform;
         [SerializeField] private Transform _visualTransform;
 
-        [SerializeField] private float _uppercutAngleThreshold;
-        [SerializeField] private float _hookAngleThreshold;
-
         [Inject] private IHeadController _headController;
         [Inject] private IInputService _inputService;
         [Inject] private Camera _camera;
@@ -35,8 +32,7 @@ namespace Source.Scripts.Gameplay.Gloves
 
             onMouseReleased
                 .Where(this, static (_, self) => self._isPunching is false)
-                .Do(this, static (_, self) => self.ExecutePunch().Forget())
-                .Subscribe(this, static (_, self) => self._punchChargeHandler.ReleaseCharge())
+                .Subscribe(this, static (_, self) => self.ExecutePunch().Forget())
                 .RegisterTo(destroyCancellationToken);
         }
 
@@ -69,9 +65,10 @@ namespace Source.Scripts.Gameplay.Gloves
             var meshCollider = _headController.MeshCollider;
             var mousePosition = _inputService.CurrentMousePosition.CurrentValue;
             var mouseRay = _camera.ScreenPointToRay(mousePosition);
-            var maxDistance = (meshCollider.bounds.center - _punchTransform.position).magnitude;
+            var maxDistance = Vector3.Distance(meshCollider.bounds.center, _punchTransform.position)
+                              + meshCollider.bounds.extents.magnitude;
 
-            return meshCollider.Raycast(mouseRay, out _, float.PositiveInfinity)
+            return meshCollider.Raycast(mouseRay, out _, maxDistance)
                 ? HeadSide.Center
                 : GetRelativeSide(mouseRay);
         }
@@ -79,13 +76,13 @@ namespace Source.Scripts.Gameplay.Gloves
         private HeadSide GetRelativeSide(Ray mouseRay)
         {
             var meshCollider = _headController.MeshCollider;
-            var plane = new Plane(Vector3.forward, meshCollider.bounds.center);
+            var colliderCenter = meshCollider.bounds.center;
+            var plane = new Plane(Vector3.forward, colliderCenter);
 
             var clickPosition = plane.Raycast(mouseRay, out var distance)
                 ? mouseRay.GetPoint(distance)
-                : meshCollider.bounds.center;
+                : colliderCenter;
 
-            var colliderCenter = meshCollider.bounds.center;
             var direction = clickPosition - colliderCenter;
 
             if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
