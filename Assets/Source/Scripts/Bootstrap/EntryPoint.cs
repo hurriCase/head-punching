@@ -1,4 +1,5 @@
-﻿using Source.Scripts.Gameplay.Gloves;
+﻿using PrimeTween;
+using Source.Scripts.Gameplay.Gloves;
 using Source.Scripts.Gameplay.Head;
 using UnityEngine;
 using VContainer;
@@ -15,7 +16,10 @@ namespace Source.Scripts.Bootstrap
         {
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Confined;
+
             Application.targetFrameRate = 60;
+
+            PrimeTweenConfig.warnTweenOnDisabledTarget = false;
 
             _headController.Init();
             _glovesHandler.Init();
