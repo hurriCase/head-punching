@@ -12,6 +12,7 @@ namespace Source.Scripts.Bootstrap
     {
         [SerializeField] private Camera _camera;
         [SerializeField] private CameraShake _cameraShake;
+        [SerializeField] private PunchSoundEffect _punchSoundEffect;
         [SerializeField] private HeadController _headController;
         [SerializeField] private GlovesHandler _glovesHandler;
 
@@ -19,6 +20,7 @@ namespace Source.Scripts.Bootstrap
         {
             builder.RegisterInstance(_camera);
             builder.RegisterInstance(_cameraShake).As<ICameraShake>();
+            builder.RegisterInstance(_punchSoundEffect).As<IPunchSoundEffect>();
 
             builder.RegisterInstance(_headController).As<IHeadController>();
             builder.RegisterInstance(_glovesHandler).As<IGlovesHandler>();

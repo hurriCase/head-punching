@@ -16,6 +16,7 @@ namespace Source.Scripts.Gameplay.Head
         [SerializeField] private float _basePunchForce;
 
         [Inject] private ICameraShake _cameraShake;
+        [Inject] private IPunchSoundEffect _punchSoundEffect;
 
         public void Init()
         {
@@ -29,6 +30,7 @@ namespace Source.Scripts.Gameplay.Head
 
             _meshDeformation.ApplyDeformationAtPoint(impactPoint, force, forceMultiplier);
             _cameraShake.Shake(forceMultiplier);
+            _punchSoundEffect.Play(forceMultiplier);
         }
 
         public Vector3 GetPunchTarget(Vector3 position, HeadSide headSide, Vector3 punchTargetOffset)
