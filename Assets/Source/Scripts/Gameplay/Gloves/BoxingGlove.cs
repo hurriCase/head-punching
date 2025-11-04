@@ -14,8 +14,7 @@ namespace Source.Scripts.Gameplay.Gloves
     {
         [SerializeField] private SerializedDictionary<HeadSide, SplineAnimation> _punches;
         [SerializeField] private PunchChargeHandler _punchChargeHandler;
-        [SerializeField] private Transform _punchTransform;
-        [SerializeField] private Transform _visualTransform;
+        [SerializeField] private Transform _gloveTransform;
 
         [Inject] private IHeadController _headController;
         [Inject] private IInputService _inputService;
@@ -40,19 +39,13 @@ namespace Source.Scripts.Gameplay.Gloves
         {
             _isPunching = true;
 
-            var startPoint = _punchTransform.position;
+            var startPoint = _gloveTransform.position;
             var headSide = DetermineHeadSide();
             var punchAnimation = _punches[headSide];
             var punchTargetOffset = punchAnimation.PunchTargetOffset;
             var punchTarget = _headController.GetPunchTarget(startPoint, headSide, punchTargetOffset);
 
-            var animationConfig = new SplineAnimationConfig(
-                _punchTransform,
-                _visualTransform,
-                startPoint,
-                punchTarget);
-
-            var punchTask = punchAnimation.Animate(animationConfig);
+            var punchTask = punchAnimation.Animate(_gloveTransform, startPoint, punchTarget);
 
             await punchAnimation.OnPunchFinished.FirstAsync(destroyCancellationToken);
 
@@ -68,7 +61,7 @@ namespace Source.Scripts.Gameplay.Gloves
             var meshCollider = _headController.MeshCollider;
             var mousePosition = _inputService.CurrentMousePosition.CurrentValue;
             var mouseRay = _camera.ScreenPointToRay(mousePosition);
-            var maxDistance = Vector3.Distance(meshCollider.bounds.center, _punchTransform.position)
+            var maxDistance = Vector3.Distance(meshCollider.bounds.center, _gloveTransform.position)
                               + meshCollider.bounds.extents.magnitude;
 
             return meshCollider.Raycast(mouseRay, out _, maxDistance)
@@ -96,20 +89,19 @@ namespace Source.Scripts.Gameplay.Gloves
 
         private void ApplyPunchImpact(Vector3 punchTarget, HeadSide headSide)
         {
-            var punchDirection = GetPunchDirection(headSide);
+            var punchDirection = headSide switch
+            {
+                HeadSide.Center => Vector3.forward,
+                HeadSide.Left => Vector3.right,
+                HeadSide.Right => Vector3.left,
+                HeadSide.Top => Vector3.down,
+                HeadSide.Bottom => Vector3.up,
+                _ => Vector3.forward
+            };
+
             var forceMultiplier = _punchChargeHandler.ReleaseCharge();
 
             _headController.ApplyPunchImpact(punchTarget, punchDirection, forceMultiplier);
         }
-
-        private Vector3 GetPunchDirection(HeadSide headSide) => headSide switch
-        {
-            HeadSide.Center => Vector3.forward,
-            HeadSide.Left => Vector3.right,
-            HeadSide.Right => Vector3.left,
-            HeadSide.Top => Vector3.down,
-            HeadSide.Bottom => Vector3.up,
-            _ => Vector3.forward
-        };
     }
 }

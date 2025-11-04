@@ -1,37 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &849509901978617426
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4347808990263598526}
-  m_Layer: 0
-  m_Name: PunchPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &4347808990263598526
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 849509901978617426}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 3246762746875897431}
-  m_Father: {fileID: 4141891910319206874}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1910920187304864577
 GameObject:
   m_ObjectHideFlags: 0
@@ -61,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 4347808990263598526}
+  m_Father: {fileID: 4141891910319206874}
   m_LocalEulerAnglesHint: {x: -70, y: 0, z: -130}
 --- !u!1 &8304394269838542190
 GameObject:
@@ -94,7 +62,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4347808990263598526}
+  - {fileID: 3246762746875897431}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &7209733592974324196
@@ -118,10 +86,7 @@ MonoBehaviour:
     - Key: 3
       Value: {fileID: 0}
   _punchChargeHandler: {fileID: 4409107709783659064}
-  _punchTransform: {fileID: 4347808990263598526}
-  _visualTransform: {fileID: 3246762746875897431}
-  _uppercutAngleThreshold: 82
-  _hookAngleThreshold: 35
+  _gloveTransform: {fileID: 3246762746875897431}
 --- !u!114 &4409107709783659064
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,7 +99,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47e3e78006f447da9ea6d52b02442ffa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _visualTransform: {fileID: 3246762746875897431}
+  _gloveTransform: {fileID: 3246762746875897431}
   _shakeSettings:
     strength: {x: 0.01, y: 0.01, z: 0.01}
     duration: 1

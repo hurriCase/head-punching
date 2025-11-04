@@ -1,6 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using PrimeTween;
- using R3;
+using R3;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
@@ -14,21 +14,26 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
         [field: SerializeField] internal TweenSettings PunchSettings { get; private set; }
         [field: SerializeField] internal TweenSettings ReturnSettings { get; private set; }
         [field: SerializeField] internal Vector3 PunchTargetOffset { get; private set; }
-        [field: SerializeField] internal Transform PreviewPositionTarget { get; private set; }
-        [field: SerializeField] internal Transform PreviewRotationTarget { get; private set; }
+        [field: SerializeField] internal Transform PreviewTarget { get; private set; }
 
         internal Observable<Unit> OnPunchFinished => _punchFinished;
         private readonly Subject<Unit> _punchFinished = new();
 
-        private SplineAnimationConfig _config;
         private SplineTransformation _transformation;
 
-        internal async UniTask Animate(SplineAnimationConfig config)
-        {
-            var initialLocalPosition = config.PositionTarget.localPosition;
-            var initialLocalRotation = config.RotationTarget.localRotation;
+        private Transform _target;
+        private Vector3 _startPoint;
+        private Vector3 _endPoint;
 
-            _config = config;
+        internal async UniTask Animate(Transform target, Vector3 startPoint, Vector3 endPoint)
+        {
+            var initialLocalPosition = target.localPosition;
+            var initialLocalRotation = target.localRotation;
+
+            _target = target;
+            _startPoint = startPoint;
+            _endPoint = endPoint;
+
             _transformation = CalculateTransformation();
 
             await Tween.Custom(
@@ -41,8 +46,8 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
             _punchFinished.OnNext(Unit.Default);
 
             await Sequence.Create()
-                .Chain(Tween.LocalPosition(config.PositionTarget, initialLocalPosition, ReturnSettings))
-                .Group(Tween.LocalRotation(config.RotationTarget, initialLocalRotation, ReturnSettings));
+                .Chain(Tween.LocalPosition(_target, initialLocalPosition, ReturnSettings))
+                .Group(Tween.LocalRotation(_target, initialLocalRotation, ReturnSettings));
         }
 
         internal (Vector3 position, Quaternion rotation) EvaluateSplineTransform(float normalizedProgress)
@@ -62,8 +67,8 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
             var (splinePosition, splineRotation) = EvaluateSplineTransform(currentTime);
             var finalPosition = TransformPosition(splinePosition);
 
-            _config.PositionTarget.position = finalPosition;
-            _config.RotationTarget.rotation = splineRotation;
+            _target.position = finalPosition;
+            _target.rotation = splineRotation;
         }
 
         private Vector3 TransformPosition(Vector3 splinePosition)
@@ -71,7 +76,7 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
             var offsetPoint = splinePosition - _transformation.SplineStartPoint;
             var rotatedPoint = _transformation.Rotation * offsetPoint;
             var scaledPoint = rotatedPoint * _transformation.Scale;
-            return _config.StartPoint + scaledPoint;
+            return _startPoint + scaledPoint;
         }
 
         private SplineTransformation CalculateTransformation()
@@ -80,10 +85,10 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
             var splineEndPoint = (Vector3)SplineContainer.EvaluatePosition(1f);
 
             var splineDirection = (splineEndPoint - splineStartPoint).normalized;
-            var animationDirection = (_config.EndPoint - _config.StartPoint).normalized;
+            var animationDirection = (_endPoint - _startPoint).normalized;
 
             var splineLength = Vector3.Distance(splineStartPoint, splineEndPoint);
-            var animationLength = Vector3.Distance(_config.StartPoint, _config.EndPoint);
+            var animationLength = Vector3.Distance(_startPoint, _endPoint);
 
             var scale = animationLength / splineLength;
             var rotation = Quaternion.FromToRotation(splineDirection, animationDirection);

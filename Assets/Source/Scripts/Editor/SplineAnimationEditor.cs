@@ -37,9 +37,7 @@ namespace Source.Editor
             var timeCurvePropertyName = GetBackingField(nameof(_splineAnimation.PunchSettings));
             DrawPropertiesExcluding(serializedObject, timeCurvePropertyName);
 
-            if (!_splineAnimation.SplineContainer
-                || !_splineAnimation.PreviewPositionTarget
-                || !_splineAnimation.PreviewRotationTarget)
+            if (!_splineAnimation.SplineContainer || !_splineAnimation.PreviewTarget)
             {
                 serializedObject.ApplyModifiedProperties();
                 return;
@@ -92,7 +90,7 @@ namespace Source.Editor
                 EditorPrefs.SetInt(KnotIndexKey, _knotIndex);
             }
 
-            var rotationTarget = _splineAnimation.PreviewRotationTarget;
+            var rotationTarget = _splineAnimation.PreviewTarget;
 
             if (GUILayout.Button("Capture Current Rotation"))
                 CaptureRotationForCurrentKnot(rotationTarget.rotation);
@@ -167,23 +165,16 @@ namespace Source.Editor
             var splineTransform = _splineAnimation.SplineContainer.transform;
             var knots = _splineAnimation.SplineContainer.Spline.Knots.ToArray();
 
-            var startPosition = splineTransform.TransformPoint(knots[0].Position);
-            var endPosition = splineTransform.TransformPoint(knots[^1].Position);
-
-            var config = new SplineAnimationConfig(
-                _splineAnimation.PreviewPositionTarget,
-                _splineAnimation.PreviewRotationTarget,
-                startPosition,
-                endPosition);
-
-            _splineAnimation.Animate(config).Forget();
+            var startPoint = splineTransform.TransformPoint(knots[0].Position);
+            var endPoint = splineTransform.TransformPoint(knots[^1].Position);
+            _splineAnimation.Animate(_splineAnimation.PreviewTarget, startPoint, endPoint).Forget();
         }
 
         private void PreviewAtProgress(float normalizedProgress)
         {
             var (position, rotation) = _splineAnimation.EvaluateSplineTransform(normalizedProgress);
-            _splineAnimation.PreviewPositionTarget.position = position;
-            _splineAnimation.PreviewRotationTarget.rotation = rotation;
+            _splineAnimation.PreviewTarget.position = position;
+            _splineAnimation.PreviewTarget.rotation = rotation;
         }
 
         private SerializedProperty FindField(string name) => serializedObject.FindProperty(GetBackingField(name));
