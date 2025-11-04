@@ -1,5 +1,6 @@
 ﻿using Cysharp.Threading.Tasks;
 using PrimeTween;
+ using R3;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Splines;
@@ -15,6 +16,9 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
         [field: SerializeField] internal Vector3 PunchTargetOffset { get; private set; }
         [field: SerializeField] internal Transform PreviewPositionTarget { get; private set; }
         [field: SerializeField] internal Transform PreviewRotationTarget { get; private set; }
+
+        internal Observable<Unit> OnPunchFinished => _punchFinished;
+        private readonly Subject<Unit> _punchFinished = new();
 
         private SplineAnimationConfig _config;
         private SplineTransformation _transformation;
@@ -34,7 +38,7 @@ namespace Source.Scripts.Gameplay.Gloves.PunchAnimation.Animation
                 PunchSettings,
                 onValueChange: static (state, currentTime) => state.UpdateTransformAlongPath(currentTime));
 
-            config.AnimationFinished?.Invoke(config.BoxingGlove, config.StartPoint, config.HeadSide);
+            _punchFinished.OnNext(Unit.Default);
 
             await Sequence.Create()
                 .Chain(Tween.LocalPosition(config.PositionTarget, initialLocalPosition, ReturnSettings))

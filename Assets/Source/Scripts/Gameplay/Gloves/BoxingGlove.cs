@@ -32,11 +32,11 @@ namespace Source.Scripts.Gameplay.Gloves
 
             onMouseReleased
                 .Where(this, static (_, self) => self._isPunching is false)
-                .Subscribe(this, static (_, self) => self.ExecutePunch().Forget())
+                .Subscribe(this, static (_, self) => self.ExecutePunchAsync().Forget())
                 .RegisterTo(destroyCancellationToken);
         }
 
-        private async UniTask ExecutePunch()
+        private async UniTask ExecutePunchAsync()
         {
             _isPunching = true;
 
@@ -50,12 +50,15 @@ namespace Source.Scripts.Gameplay.Gloves
                 _punchTransform,
                 _visualTransform,
                 startPoint,
-                punchTarget,
-                this,
-                headSide,
-                static (self, startPoint, headSide) => self.ProvideImpact(startPoint, headSide));
+                punchTarget);
 
-            await punchAnimation.Animate(animationConfig);
+            var punchTask = punchAnimation.Animate(animationConfig);
+
+            await punchAnimation.OnPunchFinished.FirstAsync(destroyCancellationToken);
+
+            ApplyPunchImpact(punchTarget, headSide);
+
+            await punchTask;
 
             _isPunching = false;
         }
@@ -91,20 +94,22 @@ namespace Source.Scripts.Gameplay.Gloves
             return direction.y > 0 ? HeadSide.Top : HeadSide.Bottom;
         }
 
-        private void ProvideImpact(Vector3 punchTarget, HeadSide headSide)
+        private void ApplyPunchImpact(Vector3 punchTarget, HeadSide headSide)
         {
-            var punchDirection = headSide switch
-            {
-                HeadSide.Center => Vector3.forward,
-                HeadSide.Left => Vector3.right,
-                HeadSide.Right => Vector3.left,
-                HeadSide.Top => Vector3.down,
-                HeadSide.Bottom => Vector3.up,
-                _ => Vector3.forward
-            };
+            var punchDirection = GetPunchDirection(headSide);
             var forceMultiplier = _punchChargeHandler.ReleaseCharge();
 
             _headController.ApplyPunchImpact(punchTarget, punchDirection, forceMultiplier);
         }
+
+        private Vector3 GetPunchDirection(HeadSide headSide) => headSide switch
+        {
+            HeadSide.Center => Vector3.forward,
+            HeadSide.Left => Vector3.right,
+            HeadSide.Right => Vector3.left,
+            HeadSide.Top => Vector3.down,
+            HeadSide.Bottom => Vector3.up,
+            _ => Vector3.forward
+        };
     }
 }

@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _meshFilter: {fileID: 7028787214325952271}
-  _deformationRadius: 0.8
-  _baseDeformationStrength: 0.6
+  _deformationRadius: 0.1
+  _baseDeformationStrength: 0.1
   _recoveryDuration: 1
 --- !u!114 &472142569367604981
 MonoBehaviour:
