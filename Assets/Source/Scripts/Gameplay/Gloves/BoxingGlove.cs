@@ -15,6 +15,7 @@ namespace Source.Scripts.Gameplay.Gloves
         [SerializeField] private SerializedDictionary<HeadSide, SplineAnimation> _punches;
         [SerializeField] private PunchChargeHandler _punchChargeHandler;
         [SerializeField] private Transform _gloveTransform;
+        [SerializeField] private HeadSide _gloveSide;
 
         [Inject] private IHeadController _headController;
         [Inject] private IInputService _inputService;
@@ -82,7 +83,7 @@ namespace Source.Scripts.Gameplay.Gloves
             var direction = clickPosition - colliderCenter;
 
             if (Mathf.Abs(direction.x) > Mathf.Abs(direction.y))
-                return direction.x > 0 ? HeadSide.Right : HeadSide.Left;
+                return _gloveSide;
 
             return direction.y > 0 ? HeadSide.Top : HeadSide.Bottom;
         }
